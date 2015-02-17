@@ -38,6 +38,6 @@ Licenses for the following IP cores are needed:
  * Xilinx Aurora
 
 
- This project was created as part of the project group [On-the-fly Networking
+This project was created as part of the project group [On-the-fly Networking
 for Big Data](http://www.cs.uni-paderborn.de/fachgebiete/fachgebiet-rechnernetze/lehre/lehreteaching-ss14/pg-on-the-fly-networking-for-big-data.html)
 at University of Paderborn.
