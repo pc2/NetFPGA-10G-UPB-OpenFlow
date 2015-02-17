@@ -1,0 +1,32 @@
+##############################################################################
+## Filename:          /home/tloecke/Desktop/peripheral_repo/MyProcessorIPLib/pcores/nf10_upb_interconnect_v1_00_a/data/nf10_upb_interconnect_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Wed Jun 25 16:53:18 2014 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+#lib nf10_upb_interconnect_v1_00_a ./nf10/crc802_3 verilog
+#lib nf10_upb_interconnect_v1_00_a ../../../nf10_upb_lib/hdl/verilog/flow_ctrl verilog
+#lib nf10_upb_interconnect_v1_00_a ./nf10/nf10_upb_aurora_input verilog
+#lib nf10_upb_interconnect_v1_00_a ./nf10/nf10_upb_interconnect verilog
+#lib nf10_upb_interconnect_v1_00_a ./nf10/wide_fifo verilog
+#lib nf10_upb_interconnect_v1_00_a ../../../nf10_upb_lib/hdl/verilog/nf10_upb_packet_fifo verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_aurora_lane_4byte verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_channel_err_detect verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_channel_init_sm verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_chbond_count_dec_4byte verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_clock_module verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_err_detect_4byte verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_global_logic verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_idle_and_ver_gen verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_lane_init_sm_4byte verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_reset_logic verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_rx_stream verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_standard_cc_module verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_sym_dec_4byte verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_sym_gen_4byte verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_tile verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_transceiver_wrapper verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3_tx_stream verilog
+#lib nf10_upb_interconnect_v1_00_a ./aurora/aurora_8b10b_v5_3 verilog
+
+lib nf10_upb_interconnect_v1_00_a ./nf10/nf10_upb_interconnect_wrapper verilog

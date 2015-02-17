@@ -1,0 +1,40 @@
+#
+# UPB DMA Driver Makefile
+#
+# Copyright (c) 2014, 2015 Jörg Niklas
+# osjsn@niklasfamily.de
+#
+# This file is part of the NetFPGA 10G UPB OpenFlow Switch project.
+#
+# Project Group "On-the-Fly Networking for Big Data"
+# SFB 901 "On-The-Fly Computing"
+#
+# University of Paderborn
+# Computer Engineering Group
+# Pohlweg 47 - 49
+# 33098 Paderborn
+# Germany
+#
+#
+# This file is free code: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License version 2.1 as
+# published by the Free Software Foundation.
+#
+# This file is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this project. If not, see <http://www.gnu.org/licenses/>.
+#
+
+SUBDIRS = src/nic_driver src/apps src/flashprog
+
+.PHONY: all debug release clean $(SUBDIRS)
+
+all debug release clean: $(SUBDIRS)
+
+$(SUBDIRS):
+	$(MAKE) -C $@ $(MAKECMDGOALS)
+

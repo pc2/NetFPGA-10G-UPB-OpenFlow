@@ -1,0 +1,87 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_upb_dma_v2_1_0.pao
+#
+#  Library:
+#        hw/contrib/pcores/nf10_upb_dma_v1_00_a
+#
+#  Author:
+#        Mario Flajslik
+#        Modified by Michael Lass
+#
+#  Description:
+#        Peripheral Analyze Order File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+lib nf10_upb_dma_v1_00_a dma/dma.v verilog
+lib nf10_upb_dma_v1_00_a ../../prj/dma_engine.vhm vhdl
+lib nf10_upb_dma_v1_00_a dma/axi4_lite_regs.v verilog
+lib axi_master_lite_v2_00_a all vhdl
+
+# Xilinx PCIe files
+lib nf10_upb_dma_v1_00_a xilinx/bram_common.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/cmm_decoder.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/cmm_errman_cnt_en.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/cmm_errman_cor.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/cmm_errman_cpl.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/cmm_errman_ftl.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/cmm_errman_ram4x26.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/cmm_errman_ram8x26.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/cmm_intr.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/endpoint_blk_plus_v1_15.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/extend_clk.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_cf.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_cf_arb.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_cf_err.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_cf_mgmt.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_cf_pwr.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_if.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_ll.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_ll_arb.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_ll_credit.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_ll_oqbqfifo.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_ll_tx.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_ll_tx_arb.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_plus_ll_rx.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_blk_plus_ll_tx.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_clocking.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_ep.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_gt_wrapper.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_gt_wrapper_top.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_gtx_wrapper.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_mim_wrapper.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_reset_logic.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_soft_int.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/pcie_top.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/prod_fixes.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/sync_fifo.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/tlm_rx_data_snk.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/tlm_rx_data_snk_bar.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/tlm_rx_data_snk_mal.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/tlm_rx_data_snk_pwr_mgmt.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/tx_sync_gtp.v verilog
+lib nf10_upb_dma_v1_00_a xilinx/tx_sync_gtx.v verilog

@@ -1,0 +1,68 @@
+BEGIN nf10_upb_switch
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = FALSE
+OPTION HDL = MIXED
+#OPTION USAGE_LEVEL = BASE_USER
+OPTION RUN_NGCBUILD = TRUE
+OPTION STYLE = BLACKBOX
+OPTION IP_GROUP = UPB
+OPTION DESC = NetFPGA-10G Layer 2 learning Switch Implementation
+
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+
+## Ports
+PARAMETER dma_port_id = 998, DT = integer, ASSIGNMENT = REQUIRE
+
+#PORT axi_aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS:S_AXIS
+PORT clk = "", DIR = I, ASSIGNMENT = REQUIRE
+PORT clk2x = "", DIR = I, ASSIGNMENT = REQUIRE
+PORT clk2x90 = "", DIR = I, ASSIGNMENT = REQUIRE
+PORT reset = "", DIR = I
+
+
+
+
+
+PORT qdr_c_k = "", DIR = O
+PORT qdr_c_k_n = "", DIR = O
+PORT qdr_c_c = "", DIR = O
+PORT qdr_c_c_n = "", DIR = O
+PORT qdr_c_sa = "", DIR = O, VEC = [18:0]
+PORT qdr_c_r_n = "", DIR = O
+PORT qdr_c_w_n = "", DIR = O
+PORT qdr_c_bw_n = "", DIR = O, VEC = [3:0]
+PORT qdr_c_d = "", DIR = O, VEC = [35:0]
+PORT qdr_c_dll_off_n = "", DIR = O
+PORT qdr_c_cq = "", DIR = I
+PORT qdr_c_cq_n = "", DIR = I
+PORT qdr_c_q = "", DIR = I, VEC = [35:0]
+
+
+PORT m_axis_tdata = TDATA, DIR = O, VEC = [255:0], BUS = M_AXIS
+PORT m_axis_tkeep = TKEEP, DIR = O, VEC = [31:0], BUS = M_AXIS
+PORT m_axis_tuser_in_port = TUSER_IN_PORT, DIR = O, VEC = [2:0], BUS = M_AXIS
+PORT m_axis_tuser_in_vport = TUSER_IN_VPORT, DIR = O, VEC = [2:0], BUS = M_AXIS
+PORT m_axis_tuser_out_port = TUSER_OUT_PORT, DIR = O, VEC = [7:0], BUS = M_AXIS
+PORT m_axis_tuser_out_vport = TUSER_OUT_VPORT, DIR = O, VEC = [7:0], BUS = M_AXIS
+PORT m_axis_tuser_packet_length = TUSER_PACKET_LENGTH, DIR = O, VEC = [13:0], BUS = M_AXIS
+PORT m_axis_tvalid = TVALID, DIR = O, BUS = M_AXIS
+PORT m_axis_tready = TREADY, DIR = I, BUS = M_AXIS
+PORT m_axis_tlast = TLAST, DIR = O, BUS = M_AXIS
+
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [255:0], BUS = S_AXIS
+PORT s_axis_tkeep = TKEEP, DIR = I, VEC = [31:0], BUS = S_AXIS
+PORT s_axis_tuser_in_port = TUSER_IN_PORT, DIR = I, VEC = [2:0], BUS = S_AXIS
+PORT s_axis_tuser_in_vport = TUSER_IN_VPORT, DIR = I, VEC = [2:0], BUS = S_AXIS
+PORT s_axis_tuser_out_port = TUSER_OUT_PORT, DIR = I, VEC = [7:0], BUS = S_AXIS
+PORT s_axis_tuser_out_vport = TUSER_OUT_VPORT, DIR = I, VEC = [7:0], BUS = S_AXIS
+PORT s_axis_tuser_packet_length = TUSER_PACKET_LENGTH, DIR = I, VEC = [13:0], BUS = S_AXIS
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+END

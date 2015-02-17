@@ -1,0 +1,120 @@
+DISCLAIMER NOTICE
+We are not affiliated, associated, authorized, endorsed by, or in any
+way officially connected with Xilinx, Inc. or any of its subsidiaries or
+its affiliates.  In no event whatsoever shall Xilinx, Inc. or any of its
+subsidiaries or its affiliates have any warranty or support commitment
+for this software or liability for loss, injury or damage in connection
+with this software, including but not limited to the use or display
+thereof.
+---
+37c37
+< --  **  Copyright 2010 Xilinx, Inc.                                          **
+---
+> --  **  Copyright 2007, 2008, 2009 Xilinx, Inc.                              **
+45,49c45,49
+< -- Filename     : mdio_if.vhd
+< -- Version      : v1.00.a
+< -- Description  : This entity provides the interface between the physical layer
+< --                management control, and the host interface through the MAC. 
+< -- VHDL-Standard: VHDL'93
+---
+> -- Filename:        mdio_if.vhd
+> --
+> -- Description: This entity provides the interface between the physical layer
+> --              management control, and the host interface through the MAC. 
+> -- VHDL-Standard:   VHDL'93
+53c53
+< --  axi_ethernetlite.vhd
+---
+> --  xps_ethernetlite.vhd
+55d54
+< --      \-- axi_interface.vhd
+57a57
+> --           \-- xps_ipif_ssp1.vhd
+66c66
+< --                \-- MacAddrRAM                   
+---
+> --                \                     
+70c70
+< --                \         async_fifo_fg.vhd
+---
+> --                \         ethernetlite_v1_01_b_dmem_v2.edn
+77c77
+< --                          async_fifo_fg.vhd
+---
+> --                          ethernetlite_v1_01_b_dmem_v2.edn
+88,90c88,90
+< -- Author:    PVK
+< -- History:    
+< -- PVK        06/07/2010     First Version
+---
+> -- Author:         PVK
+> -- History:
+> --  PVK            03/09/09
+92,93c92,93
+< -- First version.  
+< -- ~~~~~~
+---
+> --                 First Version of MDIO interface module.
+> --  ~~~~~
+119,120c119,120
+< library axi_ethernetlite_v1_00_a;
+< use axi_ethernetlite_v1_00_a.all;
+---
+> library nf10_mdio_v1_00_a;
+> use nf10_mdio_v1_00_a.all;
+148,149c148,150
+<       MDIO_en        : in std_logic;   -- MDIO enable 
+<       MDIO_OP        : in std_logic;   -- MDIO OP code
+---
+>       MDIO_en        : in std_logic;   -- MDIO enable
+>       MDIO_Clause    : in std_logic;   -- MDIO Clause Type (0 is Clasuse 22)
+>       MDIO_OP        : in std_logic_vector(1 downto 0);   -- MDIO OP code
+207c208
+<    -- Registering PHY_MDIO_I and MDC signals w.r.t SAXI clock.
+---
+>    -- Registering PHY_MDIO_I and MDC signals w.r.t SPLB clock.
+398,399c399,400
+<   MDIO_STATE_COMB : process (mdio_state, mdio_idle, clk_cnt, MDIO_OP,
+<                              MDIO_PHY_AD, MDIO_REG_AD, MDIO_WR_DATA)
+---
+>   MDIO_STATE_COMB : process (mdio_state, mdio_idle, clk_cnt, MDIO_Clause,
+>                              MDIO_OP, MDIO_PHY_AD, MDIO_REG_AD, MDIO_WR_DATA)
+438c439,443
+<            mdio_o_cmb  <= '1';
+---
+>            if MDIO_Clause = '0' then 
+>              mdio_o_cmb  <= '1';
+>            else
+>              mdio_o_cmb  <= '0';
+>            end if;
+443c448,449
+<            if MDIO_OP='1' then
+---
+>            if (MDIO_OP="10" or MDIO_OP="11") then         -- originally 1
+>         -- if (MDIO_OP="01" or MDIO_OP="11") then         -- originally 1
+454c460,461
+<            if MDIO_OP='1' then
+---
+>            if (MDIO_OP="00" or MDIO_OP="10") then         -- originally 1
+>         -- if (MDIO_OP="00" or MDIO_OP="01") then         -- originally 1             
+485c492,493
+<            if MDIO_OP='1' then
+---
+>            if (MDIO_OP="10" or MDIO_OP="11") then         -- orginally 1
+>         -- if (MDIO_OP="01" or MDIO_OP="11") then         -- orginally 1
+497c505,506
+<            if MDIO_OP='0' then
+---
+>            if (MDIO_OP="00" or MDIO_OP="01") then         -- originally 0
+>         -- if (MDIO_OP="00" or MDIO_OP="10") then         -- originally 0
+533,534c542
+<       -- coverage off
+<       when others =>
+---
+>         when others =>
+536,537c544
+<       -- coverage on
+< 
+---
+>         

@@ -1,0 +1,76 @@
+# UPB AXI-4 Lite ChipScope core
+#
+# Copyright (c) 2014, 2015 Jörg Niklas
+# osjsn@niklasfamily.de
+#
+# This file is part of the NetFPGA 10G UPB OpenFlow Switch project.
+#
+# Project Group "On-the-Fly Networking for Big Data"
+# SFB 901 "On-The-Fly Computing"
+#
+# University of Paderborn
+# Computer Engineering Group
+# Pohlweg 47 - 49
+# 33098 Paderborn
+# Germany
+#
+#
+# This file is free code: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License version 2.1 as
+# published by the Free Software Foundation.
+#
+# This file is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this project. If not, see <http://www.gnu.org/licenses/>.
+#
+
+BEGIN nf10_upb_axi_lite_chipscope
+
+OPTION IPTYPE = PERIPHERAL
+OPTION STYLE = MIX
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = VERILOG
+OPTION IP_GROUP = UPB
+OPTION DESC = NetFPGA-10G AXI Lite ChipScope Core
+
+BUS_INTERFACE BUS = AXI, BUS_STD = AXI, BUS_TYPE = MONITOR
+
+PARAMETER C_AXI_ADDR_WIDTH = 32, DT = INTEGER, BUS = AXI
+PARAMETER C_AXI_DATA_WIDTH = 32, DT = INTEGER, BUS = AXI
+
+PARAMETER USE_FF_BEFORE_CHIPSCOPE = 1, DT = INTEGER, RANGE = (0:1)
+
+PORT axi_aclk = "", DIR = I, SIGIS = CLK, BUS = AXI, ASSIGNMENT = REQUIRE
+PORT axi_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = AXI
+
+PORT axi_araddr = ARADDR, DIR = I, VEC = [C_AXI_ADDR_WIDTH-1:0], ENDIAN = LITTLE, BUS = AXI
+PORT axi_arvalid = ARVALID, DIR = I, BUS = AXI
+PORT axi_arready = ARREADY, DIR = I, BUS = AXI
+
+PORT axi_rdata = RDATA, DIR = I, VEC = [(C_AXI_DATA_WIDTH-1):0], ENDIAN = LITTLE, BUS = AXI
+PORT axi_rresp = RRESP, DIR = I, VEC = [1:0], BUS = AXI
+PORT axi_rvalid = RVALID, DIR = I, BUS = AXI
+PORT axi_rready = RREADY, DIR = I, BUS = AXI
+
+
+PORT axi_awaddr = AWADDR, DIR = I, VEC = [C_AXI_ADDR_WIDTH-1:0], ENDIAN = LITTLE, BUS = AXI
+PORT axi_awvalid = AWVALID, DIR = I, BUS = AXI
+PORT axi_awready = AWREADY, DIR = I, BUS = AXI
+
+PORT axi_wdata = WDATA, DIR = I, VEC = [(C_AXI_DATA_WIDTH-1):0], ENDIAN = LITTLE, BUS = AXI
+PORT axi_wstrb = WSTRB, DIR = I, VEC = [((C_AXI_DATA_WIDTH/8)-1):0], ENDIAN = LITTLE, BUS = AXI
+PORT axi_wvalid = WVALID, DIR = I, BUS = AXI
+PORT axi_wready = WREADY, DIR = I, BUS = AXI
+
+PORT axi_bresp = BRESP, DIR = I, VEC = [1:0], BUS = AXI
+PORT axi_bvalid = BVALID, DIR = I, BUS = AXI
+PORT axi_bready = BREADY, DIR = I, BUS = AXI
+
+PORT chipscope_control = "", DIR = IO, THREE_STATE = FALSE, VEC = [35:0], ASSIGNMENT = REQUIRE
+
+END
+

@@ -1,0 +1,534 @@
+DISCLAIMER NOTICE
+We are not affiliated, associated, authorized, endorsed by, or in any
+way officially connected with Xilinx, Inc. or any of its subsidiaries or
+its affiliates.  In no event whatsoever shall Xilinx, Inc. or any of its
+subsidiaries or its affiliates have any warranty or support commitment
+for this software or liability for loss, injury or damage in connection
+with this software, including but not limited to the use or display
+thereof.
+---
+1,3d0
+< -------------------------------------------------------------------------------
+< -- axi_ethernetlite - entity/architecture pair
+< -------------------------------------------------------------------------------
+43,50c40,54
+< -------------------------------------------------------------------------------
+< -- Filename     : axi_ethernetlite.vhd
+< -- Version      : v1.00.a
+< -- Description  : This is the top level wrapper file for the Ethernet
+< --                Lite function It provides a 10 or 100 Mbs full or half 
+< --                duplex Ethernet bus with an interface to an AXI Interface.               
+< -- VHDL-Standard: VHDL'93
+< -------------------------------------------------------------------------------
+---
+> ------------------------------------------------------------------------
+> --
+> --  NetFPGA-10G http://www.netfpga.org
+> --
+> --  Module:
+> --          nf10_mdio
+> --
+> --  Description:
+> --          MDIO engine for AEL2005 programming
+> --          patched from axi_ethernetlite.vhd of axi_ethernetlite pcore
+> --                 
+> --  Revision history:
+> --          2010/12/8 hyzeng: Initial check-in
+> --
+> ------------------------------------------------------------------------
+53c57
+< --  axi_ethernetlite.vhd
+---
+> --  nf10_mdio.vhd
+56c60
+< --      \-- xemac.vhd
+---
+> --      \-- mdio_ipif.vhd
+59,85d62
+< --           \-- emac_dpram.vhd                     
+< --           \    \                     
+< --           \    \-- RAMB16_S4_S36
+< --           \                          
+< --           \    
+< --           \-- emac.vhd                     
+< --                \                     
+< --                \-- MacAddrRAM                   
+< --                \-- receive.vhd
+< --                \      rx_statemachine.vhd
+< --                \      rx_intrfce.vhd
+< --                \         async_fifo_fg.vhd
+< --                \      crcgenrx.vhd
+< --                \                     
+< --                \-- transmit.vhd
+< --                       crcgentx.vhd
+< --                          crcnibshiftreg
+< --                       tx_intrfce.vhd
+< --                          async_fifo_fg.vhd
+< --                       tx_statemachine.vhd
+< --                       deferral.vhd
+< --                          cntr5bit.vhd
+< --                          defer_state.vhd
+< --                       bocntr.vhd
+< --                          lfsr16.vhd
+< --                       msh_cnt.vhd
+< --                       ld_arith_reg.vhd
+88,117c65
+< -- Author:    PVK
+< -- History:    
+< -- PVK        06/07/2010     First Version
+< -- ^^^^^^
+< -- First version.  
+< -- ~~~~~~
+< -- PVK        07/29/2010     First Version
+< -- ^^^^^^
+< -- Removed ARLOCK and AWLOCK, AWPROT, ARPROT signals from the list.
+< -- ~~~~~~
+< -------------------------------------------------------------------------------
+< -- Naming Conventions:
+< --      active low signals:                     "*_n"
+< --      clock signals:                          "clk", "clk_div#", "clk_#x" 
+< --      reset signals:                          "rst", "rst_n" 
+< --      generics:                                "C_*" 
+< --      user defined types:                     "*_TYPE" 
+< --      state machine next state:               "*_ns" 
+< --      state machine current state:            "*_cs" 
+< --      combinatorial signals:                  "*_com" 
+< --      pipelined or register delay signals:    "*_d#" 
+< --      counter signals:                        "*cnt*"
+< --      clock enable signals:                   "*_ce" 
+< --      internal version of output port         "*_i"
+< --      device pins:                            "*_pin" 
+< --      ports:                                  - Names begin with Uppercase 
+< --      processes:                              "*_PROCESS" 
+< --      component instantiations:               "<ENTITY_>I_<#|FUNC>
+< ------------------------------------------------------------------------------- 
+< -------------------------------------------------------------------------------
+---
+> 
+122c70
+< -- axi_ethernetlite_v1_00_a library is used for axi_ethernetlite_v1_00_a 
+---
+> -- nf10_mdio_v1_00_a library is used for axi_ethernetlite_v1_00_a 
+125,128c73,75
+< library axi_ethernetlite_v1_00_a;
+< use axi_ethernetlite_v1_00_a.mac_pkg.all;
+< use axi_ethernetlite_v1_00_a.axi_interface;
+< use axi_ethernetlite_v1_00_a.all;
+---
+> library nf10_mdio_v1_00_a;
+> use nf10_mdio_v1_00_a.axi_interface;
+> use nf10_mdio_v1_00_a.all;
+145,254d91
+< -- Definition of Generics:
+< -------------------------------------------------------------------------------
+< -- 
+< -- C_FAMILY                    -- Target device family 
+< -- C_BASEADDR                  -- Base Address of this device
+< -- C_HIGHADDR                  -- High Address of this device 
+< --                                (using word addressing for each byte)
+< -- C_S_AXI_ACLK_PERIOD_PS      -- The period of the AXI clock in ps
+< -- C_S_AXI_ADDR_WIDTH          -- AXI address bus width - allowed value - 32 only
+< -- C_S_AXI_DATA_WIDTH          -- AXI data bus width - allowed value - 32 or 64 only
+< -- C_S_AXI_ID_WIDTH            -- AXI Identification TAG width - 1 to 16
+< -- C_S_AXI_PROTOCOL            -- AXI protocol type
+< --              
+< -- C_DUPLEX                    -- 1 = Full duplex, 0 = Half duplex
+< -- C_TX_PING_PONG              -- 1 = Ping-pong memory used for transmit buffer
+< --                                0 = Pong memory not used for transmit buffer 
+< -- C_RX_PING_PONG              -- 1 = Ping-pong memory used for receive buffer
+< --                                0 = Pong memory not used for receive buffer 
+< -- C_INCLUDE_MDIO              -- 1 = Include MDIO Innterface, 
+< --                                0 = No MDIO Interface
+< -- C_INCLUDE_INTERNAL_LOOPBACK -- 1 = Include Internal Loopback logic, 
+< --                                0 = Internal Loopback logic disabled
+< -- C_INCLUDE_GLOBAL_BUFFERS    -- 1 = Include global buffers for PHY clocks
+< --                                0 = Use normal input buffers for PHY clocks
+< -------------------------------------------------------------------------------
+< -------------------------------------------------------------------------------
+< -- Definition of Ports:
+< --
+< -- S_AXI_ACLK            -- AXI Clock
+< -- S_AXI_ARESETN          -- AXI Reset - active low
+< -- -- Interrupts           
+< -- IP2INTC_Irpt       -- Interrupt to processor
+< --==================================
+< -- AXI Write Address Channel Signals
+< --==================================
+< -- S_AXI_AWID            -- AXI Write Address ID
+< -- S_AXI_AWADDR          -- AXI Write address - 32 bit
+< -- S_AXI_AWLEN           -- AXI Write Data Length
+< -- S_AXI_AWSIZE          -- AXI Burst Size - allowed values
+< --                       -- 000 - byte burst
+< --                       -- 001 - half word
+< --                       -- 010 - word
+< --                       -- 011 - double word
+< --                       -- NA for all remaining values
+< -- S_AXI_AWBURST         -- AXI Burst Type
+< --                       -- 00  - Fixed
+< --                       -- 01  - Incr
+< --                       -- 10  - Wrap
+< --                       -- 11  - Reserved
+< -- S_AXI_AWCACHE         -- AXI Cache Type
+< -- S_AXI_AWVALID         -- Write address valid
+< -- S_AXI_AWREADY         -- Write address ready
+< --===============================
+< -- AXI Write Data Channel Signals
+< --===============================
+< -- S_AXI_WDATA           -- AXI Write data width
+< -- S_AXI_WSTRB           -- AXI Write strobes
+< -- S_AXI_WLAST           -- AXI Last write indicator signal
+< -- S_AXI_WVALID          -- AXI Write valid
+< -- S_AXI_WREADY          -- AXI Write ready
+< --================================
+< -- AXI Write Data Response Signals
+< --================================
+< -- S_AXI_BID             -- AXI Write Response channel number
+< -- S_AXI_BRESP           -- AXI Write response
+< --                       -- 00  - Okay
+< --                       -- 01  - ExOkay
+< --                       -- 10  - Slave Error
+< --                       -- 11  - Decode Error
+< -- S_AXI_BVALID          -- AXI Write response valid
+< -- S_AXI_BREADY          -- AXI Response ready
+< --=================================
+< -- AXI Read Address Channel Signals
+< --=================================
+< -- S_AXI_ARID            -- AXI Read ID
+< -- S_AXI_ARADDR          -- AXI Read address
+< -- S_AXI_ARLEN           -- AXI Read Data length
+< -- S_AXI_ARSIZE          -- AXI Read Size
+< -- S_AXI_ARBURST         -- AXI Read Burst length
+< -- S_AXI_ARCACHE         -- AXI Read Cache
+< -- S_AXI_ARPROT          -- AXI Read Protection
+< -- S_AXI_RVALID          -- AXI Read valid
+< -- S_AXI_RREADY          -- AXI Read ready
+< --==============================
+< -- AXI Read Data Channel Signals
+< --==============================
+< -- S_AXI_RID             -- AXI Read Channel ID
+< -- S_AXI_RDATA           -- AXI Read data
+< -- S_AXI_RRESP           -- AXI Read response
+< -- S_AXI_RLAST           -- AXI Read Data Last signal
+< -- S_AXI_RVALID          -- AXI Read address valid
+< -- S_AXI_RREADY          -- AXI Read address ready
+< 
+< --                 
+< -- -- Ethernet
+< -- PHY_tx_clk       -- Ethernet tranmit clock
+< -- PHY_rx_clk       -- Ethernet receive clock
+< -- PHY_crs          -- Ethernet carrier sense
+< -- PHY_dv           -- Ethernet receive data valid
+< -- PHY_rx_data      -- Ethernet receive data
+< -- PHY_col          -- Ethernet collision indicator
+< -- PHY_rx_er        -- Ethernet receive error
+< -- PHY_rst_n        -- Ethernet PHY Reset
+< -- PHY_tx_en        -- Ethernet transmit enable
+< -- PHY_tx_data      -- Ethernet transmit data
+< -- PHY_MDIO_I       -- Ethernet PHY MDIO data input 
+< -- PHY_MDIO_O       -- Ethernet PHY MDIO data output 
+< -- PHY_MDIO_T       -- Ethernet PHY MDIO data 3-state control
+< -- PHY_MDC          -- Ethernet PHY management clock
+< -------------------------------------------------------------------------------
+257c94
+< entity axi_ethernetlite is
+---
+> entity nf10_mdio is
+330,339d166
+<        PHY_tx_clk        : in std_logic;
+<        PHY_rx_clk        : in std_logic;
+<        PHY_crs           : in std_logic;
+<        PHY_dv            : in std_logic;
+<        PHY_rx_data       : in std_logic_vector (3 downto 0);
+<        PHY_col           : in std_logic;
+<        PHY_rx_er         : in std_logic;
+<        PHY_rst_n         : out std_logic; 
+<        PHY_tx_en         : out std_logic;
+<        PHY_tx_data       : out std_logic_vector (3 downto 0);
+343c170,171
+<        PHY_MDC           : out std_logic   
+---
+>        PHY_MDC           : out std_logic;
+>        PHY_rst_n         : out std_logic   
+355,358d182
+< attribute uselowskewlines                : STRING;
+< attribute uselowskewlines of PHY_tx_clk  : signal is "yes";
+< attribute uselowskewlines of PHY_rx_clk  : signal is "yes";
+< 
+371c195
+< end axi_ethernetlite;
+---
+> end nf10_mdio;
+377c201
+< architecture imp of axi_ethernetlite is
+---
+> architecture imp of nf10_mdio is
+387,402d210
+< signal phy_rx_clk_i    : std_logic;
+< signal phy_tx_clk_i    : std_logic;
+< signal phy_rx_data_i   : std_logic_vector(3 downto 0); 
+< signal phy_tx_data_i   : std_logic_vector(3 downto 0);
+< signal phy_dv_i        : std_logic;
+< signal phy_rx_er_i     : std_logic;
+< signal phy_tx_en_i     : std_logic;
+< signal Loopback        : std_logic;
+< signal phy_rx_data_in  : std_logic_vector (3 downto 0);
+< signal phy_dv_in       : std_logic;
+< signal phy_rx_data_reg : std_logic_vector(3 downto 0);
+< signal phy_rx_er_reg   : std_logic;
+< signal phy_dv_reg      : std_logic;
+< 
+< signal phy_tx_clk_core    : std_logic;
+< signal phy_rx_clk_core    : std_logic;
+462,681d269
+< 
+< 
+<    ----------------------------------------------------------------------------
+<    -- LOOPBACK_GEN :- Include MDIO interface if the parameter 
+<    -- C_INCLUDE_INTERNAL_LOOPBACK = 1
+<    ----------------------------------------------------------------------------
+<    LOOPBACK_GEN: if C_INCLUDE_INTERNAL_LOOPBACK = 1 generate
+<    begin
+< 
+< 
+<       -------------------------------------------------------------------------
+<       -- INCLUDE_BUFG_GEN :- Include Global Buffer for PHY clocks 
+<       -- C_INCLUDE_GLOBAL_BUFFERS = 1
+<       -------------------------------------------------------------------------
+<       INCLUDE_BUFG_GEN: if C_INCLUDE_GLOBAL_BUFFERS = 1 generate
+<       begin
+<          -------------------------------------------------------------------------
+<          -- BUFG for TX clock
+<          -------------------------------------------------------------------------
+<          CLOCK_BUFG_TX: BUFG
+<            port map (
+<              O  => phy_tx_clk_core,  --[out]
+<              I  => PHY_tx_clk        --[in]
+<            );
+< 
+<       end generate INCLUDE_BUFG_GEN; 
+< 
+<       -------------------------------------------------------------------------
+<       -- NO_BUFG_GEN :- Dont include Global Buffer for PHY clocks 
+<       -- C_INCLUDE_GLOBAL_BUFFERS = 0
+<       -------------------------------------------------------------------------
+<       NO_BUFG_GEN: if C_INCLUDE_GLOBAL_BUFFERS = 0 generate
+<       begin
+< 
+<          phy_tx_clk_core  <= PHY_tx_clk;
+<       
+<       end generate NO_BUFG_GEN; 
+< 
+< 
+<       -------------------------------------------------------------------------
+<       -- BUFGMUX for clock muxing in Loopback mode
+<       -------------------------------------------------------------------------
+<       CLOCK_MUX: BUFGMUX
+<         port map (
+<           O  => phy_rx_clk_core, --[out]
+<           I0 => PHY_rx_clk,      --[in]
+<           I1 => phy_tx_clk_core, --[in]
+<           S  => Loopback         --[in]
+<         );
+< 
+<       -------------------------------------------------------------------------
+<       -- Internal Loopback generation logic
+<       -------------------------------------------------------------------------
+<       phy_rx_data_in <=  phy_tx_data_i when Loopback = '1' else
+<                          phy_rx_data_reg;
+<       
+<       phy_dv_in      <=  phy_tx_en_i   when Loopback = '1' else
+<                          phy_dv_reg;
+<       
+<       -- No receive error is generated in internal loopback
+<       phy_rx_er_i    <= '0' when Loopback = '1' else
+<                          phy_rx_er_reg;
+<       
+<       
+<                          
+<       -- Transmit and Receive clocks         
+<       phy_tx_clk_i <= not(phy_tx_clk_core);
+<       phy_rx_clk_i <= not(phy_rx_clk_core);
+<    
+<       -------------------------------------------------------------------------
+<       -- Registering RX signal 
+<       -------------------------------------------------------------------------
+<       DV_FF: FDR
+<         port map (
+<           Q  => phy_dv_i,             --[out]
+<           C  => phy_rx_clk_i,         --[in]
+<           D  => phy_dv_in,            --[in]
+<           R  => bus_rst);             --[in]
+<       
+<     
+<       -------------------------------------------------------------------------
+<       -- Registering RX data input with clock mux output
+<       -------------------------------------------------------------------------
+<       RX_REG_GEN: for i in 3 downto 0 generate
+<       begin
+<          RX_FF: FDRE
+<            port map (
+<              Q  => phy_rx_data_i(i),   --[out]
+<              C  => phy_rx_clk_i,       --[in]
+<              CE => '1',                --[in]
+<              D  => phy_rx_data_in(i),  --[in]
+<              R  => bus_rst);           --[in]
+<       
+<       end generate RX_REG_GEN;
+< 
+<    end generate LOOPBACK_GEN; 
+< 
+<    ----------------------------------------------------------------------------
+<    -- NO_LOOPBACK_GEN :- Include MDIO interface if the parameter 
+<    -- C_INCLUDE_INTERNAL_LOOPBACK = 0
+<    ----------------------------------------------------------------------------
+<    NO_LOOPBACK_GEN: if C_INCLUDE_INTERNAL_LOOPBACK = 0 generate
+<    begin
+< 
+< 
+<       -------------------------------------------------------------------------
+<       -- INCLUDE_BUFG_GEN :- Include Global Buffer for PHY clocks 
+<       -- C_INCLUDE_GLOBAL_BUFFERS = 1
+<       -------------------------------------------------------------------------
+<       INCLUDE_BUFG_GEN: if C_INCLUDE_GLOBAL_BUFFERS = 1 generate
+<       begin
+<          -------------------------------------------------------------------------
+<          -- BUFGMUX for clock muxing 
+<          -------------------------------------------------------------------------
+<          CLOCK_BUFG_TX: BUFG
+<            port map (
+<              O  => phy_tx_clk_core,  --[out]
+<              I  => PHY_tx_clk        --[in]
+<            );
+< 
+< 
+<          -------------------------------------------------------------------------
+<          -- BUFGMUX for clock muxing 
+<          -------------------------------------------------------------------------
+<          CLOCK_BUFG_RX: BUFG
+<            port map (
+<              O  => phy_rx_clk_core,  --[out]
+<              I  => PHY_rx_clk        --[in]
+<            );
+<       
+< 
+<       end generate INCLUDE_BUFG_GEN; 
+< 
+<       -------------------------------------------------------------------------
+<       -- NO_BUFG_GEN :- Dont include Global Buffer for PHY clocks 
+<       -- C_INCLUDE_GLOBAL_BUFFERS = 0
+<       -------------------------------------------------------------------------
+<       NO_BUFG_GEN: if C_INCLUDE_GLOBAL_BUFFERS = 0 generate
+<       begin
+< 
+<          phy_tx_clk_core  <= PHY_tx_clk;
+<          phy_rx_clk_core  <= PHY_rx_clk;
+<       
+<       end generate NO_BUFG_GEN; 
+< 
+< 
+< 
+<       -- Transmit and Receive clocks for core         
+<       phy_tx_clk_i  <= not(phy_tx_clk_core);
+<       phy_rx_clk_i  <= not(phy_rx_clk_core);
+<        
+<       -- TX/RX internal signals
+<       phy_rx_data_i <= phy_rx_data_reg;
+<       phy_rx_er_i   <= phy_rx_er_reg;
+<       phy_dv_i      <= phy_dv_reg;
+<       
+<       
+< 
+<    end generate NO_LOOPBACK_GEN; 
+< 
+< 
+<    ----------------------------------------------------------------------------
+<    -- Registering the Ethernet data signals
+<    ----------------------------------------------------------------------------   
+<    IOFFS_GEN: for i in 3 downto 0 generate
+<    attribute IOB of RX_FF_I : label is "true";
+<    attribute IOB of TX_FF_I : label is "true";
+<    begin
+<       RX_FF_I: FDRE
+<          port map (
+<             Q  => phy_rx_data_reg(i), --[out]
+<             C  => phy_rx_clk_core,    --[in]
+<             CE => '1',                --[in]
+<             D  => PHY_rx_data(i),     --[in]
+<             R  => bus_rst);           --[in]
+<             
+<       TX_FF_I: FDRE
+<          port map (
+<             Q  => PHY_tx_data(i),     --[out]
+<             C  => phy_tx_clk_core,    --[in]
+<             CE => '1',                --[in]
+<             D  => phy_tx_data_i(i),   --[in]
+<             R  => bus_rst);           --[in]
+<           
+<     end generate IOFFS_GEN;
+< 
+< 
+<    ----------------------------------------------------------------------------
+<    -- Registering the Ethernet control signals
+<    ----------------------------------------------------------------------------   
+<    IOFFS_GEN2: if(true) generate 
+<       attribute IOB of DVD_FF : label is "true";
+<       attribute IOB of RER_FF : label is "true";
+<       attribute IOB of TEN_FF : label is "true";
+<       begin
+<          DVD_FF: FDRE
+<            port map (
+<              Q  => phy_dv_reg,      --[out]
+<              C  => phy_rx_clk_core, --[in]
+<              CE => '1',             --[in]
+<              D  => PHY_dv,          --[in]
+<              R  => bus_rst);        --[in]
+<                
+<          RER_FF: FDRE
+<            port map (
+<              Q  => phy_rx_er_reg,   --[out]
+<              C  => phy_rx_clk_core, --[in]
+<              CE => '1',             --[in]
+<              D  => PHY_rx_er,       --[in]
+<              R  => bus_rst);        --[in]
+<                
+<          TEN_FF: FDRE
+<            port map (
+<              Q  => PHY_tx_en,       --[out]
+<              C  => phy_tx_clk_core, --[in]
+<              CE => '1',             --[in]
+<              D  => PHY_tx_en_i,     --[in]
+<              R  => bus_rst);        --[in]    
+<                
+<    end generate IOFFS_GEN2;
+684c272
+<    -- XEMAC Module
+---
+>    -- MDIO Module
+686c274
+<    XEMAC_I : entity axi_ethernetlite_v1_00_a.xemac
+---
+>    MDIO : entity nf10_mdio_v1_00_a.mdio_ipif
+724,732d311
+<         PHY_tx_clk     => phy_tx_clk_i,
+<         PHY_rx_clk     => phy_rx_clk_i,
+<         PHY_crs        => PHY_crs,
+<         PHY_dv         => phy_dv_i,
+<         PHY_rx_data    => phy_rx_data_i,
+<         PHY_col        => PHY_col,
+<         PHY_rx_er      => phy_rx_er_i,
+<         PHY_tx_en      => PHY_tx_en_i,
+<         PHY_tx_data    => PHY_tx_data_i,
+736,737c315
+<         PHY_MDC        => PHY_MDC,
+<         Loopback       => Loopback 
+---
+>         PHY_MDC        => PHY_MDC
+740c318
+< I_AXI_NATIVE_IPIF: entity axi_ethernetlite_v1_00_a.axi_interface
+---
+> I_AXI_NATIVE_IPIF: entity nf10_mdio_v1_00_a.axi_interface
+805c383
+< end imp;
+\ No newline at end of file
+---
+> end imp;

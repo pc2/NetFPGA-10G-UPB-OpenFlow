@@ -1,0 +1,123 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        xflow.opt
+#
+#  Project:
+#        loopback_test
+#
+#  Author:
+#        James Hongyi Zeng
+#
+#  Description:
+#        Xflow option file that utilizes multi-core CPU
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+FLOWTYPE = FPGA;
+#
+# Options for Translator
+#
+# Type "ngdbuild -h" for a detailed list of ngdbuild command line options
+#
+Program ngdbuild
+-p <partname>;        # Partname to use - picked from xflow commandline
+-nt timestamp;        # NGO File generation. Regenerate only when
+                      # source netlist is newer than existing
+                      # NGO file (default)
+-bm <design>.bmm     # Block RAM memory map file
+<userdesign>;         # User design - pick from xflow command line
+-uc <design>.ucf;     # ucf constraints
+<design>.ngd;         # Name of NGD file. Filebase same as design filebase
+End Program ngdbuild
+
+#
+# Options for Mapper
+#
+# Type "map -h <arch>" for a detailed list of map command line options
+#
+Program map
+#-mt 4;                   # James: Use 4 cores if possible
+-o <design>_map.ncd;     # Output Mapped ncd file
+-w;			 # Overwrite output files.
+-pr b;                   # Pack internal FF/latches into IOBs
+#-fp <design>.mfp;       # Floorplan file
+-ol high;
+-timing;
+#-detail;
+#-xe c;					# Extra effort level for timing-driven packing. 'c' means continue to improve timing even if timing constraints cannot be met. 'n' means try additional algorithms to meet timing. 
+#-logic_opt on;			# Perform post-placement physical synthesis combinatorial logic optimizations during timing driven packing (default is off).
+-register_duplication on; # Duplicate registers/luts during timing-driven packing in order to improve timing (default is off).
+#-global_opt speed;
+#-cm speed;
+<inputdir><design>.ngd;  # Input NGD file
+<inputdir><design>.pcf;  # Physical constraints file
+END Program map
+
+#
+# Options for Post Map Trace
+#
+# Type "trce -h" for a detailed list of trce command line options
+#
+Program post_map_trce
+-e 3;                 # Produce error report limited to 3 items per constraint
+#-o <design>_map.twr;  # Output trace report file
+-xml <design>_map.twx;     # Output XML version of the timing report
+#-tsi <design>_map.tsi; # Produce Timing Specification Interaction report
+<inputdir><design>_map.ncd;  # Input mapped ncd
+<inputdir><design>.pcf;      # Physical constraints file
+END Program post_map_trce
+
+#
+# Options for Place and Route
+#
+# Type "par -h" for a detailed list of par command line options
+#
+Program par
+#-mt 4;                       # James: Use 4 cores if possible
+-w;                 # Overwrite existing placed and routed ncd
+-ol high;              # Overall effort level
+#-k;					#  Re-entrant route. Keep the current placement. Continue the routing using the existing routing as a starting point.
+#-xe c;				# Extra effort level. c (Continue on Impossible) is maximum effort. Default: none
+<inputdir><design>_map.ncd;  # Input mapped NCD file
+<design>.ncd;                # Output placed and routed NCD
+<inputdir><design>.pcf;      # Input physical constraints file
+END Program par
+
+#
+# Options for Post Par Trace
+#
+# Type "trce -h" for a detailed list of trce command line options
+#
+Program post_par_trce
+-e 20				# produce detailed error report for timing constraints optionally limited to the number of items specified by <limit>
+#-v 10;				# produce verbose timing report for timing constraints limited to the number of items specified by <limit>
+#-tsi <design>.tsi;		# Produce Timing Specification Interaction report
+#-u 10;				# report unconstrained paths
+<inputdir><design>.ncd;		# Input placed and routed ncd
+<inputdir><design>.pcf;		# Physical constraints file
+END Program post_par_trce
+
+

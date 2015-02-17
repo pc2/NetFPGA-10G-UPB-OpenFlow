@@ -1,0 +1,108 @@
+#--  Synopsys, Inc.
+#--  Version G-2012.09-SP1 
+#--  Project file /home/felixw/pgotfnetworking-netfpga/lib/hw/contrib/pcores/nf10_upb_ofswitch_v1_00_a/prj/nf10_upb_ofswitch.prj
+
+#project files
+add_file -verilog "/opt/synopsys/G-2012.09-SP1/bin/../lib/xilinx/unisim.v"
+add_file -xilinx "./ipcore_dir/fifo.ngc"
+add_file -xilinx "./ipcore_dir/action_fifo.ngc"
+add_file -verilog "./ipcore_dir/fifo.v"
+add_file -verilog "./ipcore_dir/action_fifo.v"
+add_file -verilog "../hdl/SystemVerilog/combinechain.v"
+add_file -verilog "../hdl/SystemVerilog/selector.v"
+add_file -verilog "../hdl/SystemVerilog/processor.v"
+add_file -verilog "../../nf10_upb_lib/hdl/SystemVerilog/axis_if.v"
+add_file -verilog "../hdl/SystemVerilog/upb_parser.v"
+add_file -verilog "../hdl/SystemVerilog/nf10_upb_ofswitch.v"
+add_file -constraint "./nf10_upb_ofswitch.sdc"
+add_file -verilog "../hdl/SystemVerilog/action_delay.v"
+add_file -verilog "../hdl/SystemVerilog/parameters.v"
+add_file -verilog "../hdl/SystemVerilog/tcam_entry.v"
+add_file -verilog "../hdl/SystemVerilog/tcam.v"
+add_file -verilog "../hdl/SystemVerilog/tuple_t.v"
+add_file -verilog "../hdl/SystemVerilog/upb_tcam_lookup.v"
+add_file -verilog "../hdl/SystemVerilog/statistics.v"
+add_file -verilog "../hdl/SystemVerilog/statistics_ram.v"
+add_file -verilog "../hdl/SystemVerilog/static_lookup.v"
+add_file -verilog "../hdl/SystemVerilog/vport_lookup.v"
+add_file -verilog "../hdl/SystemVerilog/cam_ram.v"
+add_file -verilog "../hdl/SystemVerilog/upb_bram_cam_lookup.v"
+add_file -verilog "../hdl/SystemVerilog/crc.v"
+
+
+#implementation: "prj"
+impl -add prj -type fpga
+
+#
+#implementation attributes
+
+set_option -vlog_std sysv
+set_option -num_critical_paths 0
+set_option -num_startend_points 0
+
+#implementation parameter settings
+set_option -hdl_param -set C_AXI_BASE_ADDR_TCAM 32'hA0000000
+set_option -hdl_param -set C_AXI_HIGH_ADDR_TCAM 32'hAFFFFFFF
+set_option -hdl_param -set C_AXI_BASE_ADDR_CAM 32'hB0000000
+set_option -hdl_param -set C_AXI_HIGH_ADDR_CAM 32'hBFFFFFFF
+set_option -hdl_param -set C_AXI_BASE_ADDR_STATS 32'hC0000000
+set_option -hdl_param -set C_AXI_HIGH_ADDR_STATS 32'hCFFFFFFF
+set_option -hdl_param -set C_DMA_PORT 5
+set_option -hdl_param -set C_DMA_FIRST_EXTERNAL_PORT 0
+set_option -hdl_param -set C_DMA_LAST_EXTERNAL_PORT 4
+set_option -hdl_param -set C_BRIDGED_ETH_A_VPORT 5
+set_option -hdl_param -set C_BRIDGED_ETH_B_VPORT 6
+set_option -hdl_param -set TCAM_DEPTH 64
+set_option -hdl_param -set CAM_DEPTH 2048
+
+#device options
+set_option -technology Virtex5
+set_option -part XC5VTX240T
+set_option -package FF1759
+set_option -speed_grade -2
+set_option -part_companion ""
+
+#compilation/mapping options
+set_option -use_fsm_explorer 0
+set_option -top_module "nf10_upb_ofswitch"
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+set_option -srs_instrumentation 1
+
+# xilinx_options
+set_option -RWCheckOnRam 1
+
+# Xilinx Virtex2
+set_option -run_prop_extract 1
+set_option -maxfan 100
+set_option -disable_io_insertion 1
+set_option -pipe 1
+set_option -update_models_cp 0
+set_option -retiming 1
+set_option -no_sequential_opt 0
+set_option -fix_gated_and_generated_clocks 1
+
+# Xilinx Virtex5
+set_option -enable_prepacking 1
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 1
+set_option -resource_sharing 1
+
+#VIF options
+set_option -write_vif 0
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 1
+
+#set result format/file last
+project -result_file "./nf10_upb_ofswitch.edf"
+
+#design plan options
+impl -active "prj"

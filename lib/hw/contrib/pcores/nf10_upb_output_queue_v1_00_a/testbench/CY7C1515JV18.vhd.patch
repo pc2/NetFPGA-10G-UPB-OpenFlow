@@ -1,0 +1,25 @@
+25,32d24
+< 
+< --	Modifications by Jörg Niklas (osjsn@niklasfamily.de):
+< --
+< --	- corrected value "mem_sizes" (wrong value for CY7C1515JV18)
+< -- - corrected "Echo Clock Generator"
+< --
+< --
+< 
+43c35
+<         mem_sizes : INTEGER :=  2**19*4;
+---
+>         mem_sizes : INTEGER :=  524287;
+152,153c144,145
+<      ELSIF (clkint1_n'EVENT AND clkint1_n ='1') THEN
+<        CQ <= '0' AFTER tCO_no_jitter;
+---
+>      ELSIF (clkint2'EVENT AND clkint2 ='1') THEN
+>        CQ <= '0';
+161,162c153,154
+<      ELSIF (clkint1'EVENT AND clkint1 ='1') THEN
+<        CQ_n <= '0' AFTER tCO_no_jitter;
+---
+>      ELSIF (clkint2_n'EVENT AND clkint2_n ='1') THEN
+>        CQ_n <= '0';

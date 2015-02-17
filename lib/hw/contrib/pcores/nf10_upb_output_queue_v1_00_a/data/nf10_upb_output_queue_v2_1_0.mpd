@@ -1,0 +1,198 @@
+#
+# UPB Output Queue core
+#
+# Copyright (c) 2014, 2015 Jörg Niklas
+# osjsn@niklasfamily.de
+#
+# This file is part of the NetFPGA 10G UPB OpenFlow Switch project.
+#
+# Project Group "On-the-Fly Networking for Big Data"
+# SFB 901 "On-The-Fly Computing"
+#
+# University of Paderborn
+# Computer Engineering Group
+# Pohlweg 47 - 49
+# 33098 Paderborn
+# Germany
+#
+#
+# This file is free code: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License version 2.1 as
+# published by the Free Software Foundation.
+#
+# This file is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this project. If not, see <http://www.gnu.org/licenses/>.
+#
+
+BEGIN nf10_upb_output_queue
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION STYLE = BLACKBOX
+OPTION IP_GROUP = UPB
+OPTION DESC = NetFPGA-10G Output Queue
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER output_ports = 2, DT = integer, RANGE = (2:7)
+PARAMETER axis_data_width = 256, DT = integer, ASSIGNMENT = CONSTANT
+PARAMETER axis_tkeep_width = 32, DT = integer, ASSIGNMENT = CONSTANT
+PARAMETER axis_tuser_in_port_width = 3, DT = integer, ASSIGNMENT = CONSTANT
+PARAMETER axis_tuser_out_port_width = 8, DT = integer, ASSIGNMENT = CONSTANT
+PARAMETER axis_tuser_packet_length_width = 14, DT = integer, ASSIGNMENT = CONSTANT
+
+## Bus Interfaces
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = M_AXIS_0, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = M_AXIS_1, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = M_AXIS_2, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (output_ports > 2)
+BUS_INTERFACE BUS = M_AXIS_3, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (output_ports > 3)
+BUS_INTERFACE BUS = M_AXIS_4, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (output_ports > 4)
+BUS_INTERFACE BUS = M_AXIS_5, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (output_ports > 5)
+BUS_INTERFACE BUS = M_AXIS_6, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (output_ports > 6)
+
+## Ports
+PORT clk = "", DIR = I, SIGIS = CLK, ASSIGNMENT = REQUIRE
+PORT reset = "", DIR = I, SIGIS = RST
+PORT clk2x = "", DIR = I, SIGIS = CLK, ASSIGNMENT = REQUIRE
+PORT clk2x90 = "", DIR = I, SIGIS = CLK, ASSIGNMENT = REQUIRE
+
+PORT s_axis_tdata = TDATA, BUS=S_AXIS, DIR = I, VEC = [(axis_data_width-1):0]
+PORT s_axis_tkeep = TKEEP, BUS=S_AXIS, DIR = I, VEC = [(axis_tkeep_width-1):0]
+PORT s_axis_tlast = TLAST, BUS=S_AXIS, DIR = I
+PORT s_axis_tvalid = TVALID, BUS=S_AXIS, DIR = I
+PORT s_axis_tready = TREADY, BUS=S_AXIS, DIR = O
+PORT s_axis_tuser_in_port = TUSER_IN_PORT, BUS=S_AXIS, DIR = I, VEC = [(axis_tuser_in_port_width-1):0]
+PORT s_axis_tuser_in_vport = TUSER_IN_VPORT, BUS=S_AXIS, DIR = I, VEC = [(axis_tuser_in_port_width-1):0]
+PORT s_axis_tuser_out_port = TUSER_OUT_PORT, BUS=S_AXIS, DIR = I, VEC = [(axis_tuser_out_port_width-1):0]
+PORT s_axis_tuser_out_vport = TUSER_OUT_VPORT, BUS=S_AXIS, DIR = I, VEC = [(axis_tuser_out_port_width-1):0]
+PORT s_axis_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=S_AXIS, DIR = I, VEC = [(axis_tuser_packet_length_width-1):0]
+
+PORT m_axis_0_clk = "", DIR = I, SIGIS = CLK
+PORT m_axis_0_reset = "", DIR = I, SIGIS = RST
+PORT m_axis_0_tdata = TDATA, BUS=M_AXIS_0, DIR = O, VEC = [(axis_data_width-1):0]
+PORT m_axis_0_tkeep = TKEEP, BUS=M_AXIS_0, DIR = O, VEC = [(axis_tkeep_width-1):0]
+PORT m_axis_0_tlast = TLAST, BUS=M_AXIS_0, DIR = O
+PORT m_axis_0_tvalid = TVALID, BUS=M_AXIS_0, DIR = O
+PORT m_axis_0_tready = TREADY, BUS=M_AXIS_0, DIR = I
+PORT m_axis_0_tuser_in_port = TUSER_IN_PORT, BUS=M_AXIS_0, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_0_tuser_in_vport = TUSER_IN_VPORT, BUS=M_AXIS_0, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_0_tuser_out_port = TUSER_OUT_PORT, BUS=M_AXIS_0, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_0_tuser_out_vport = TUSER_OUT_VPORT, BUS=M_AXIS_0, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_0_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=M_AXIS_0, DIR = O, VEC = [(axis_tuser_packet_length_width-1):0]
+
+PORT m_axis_1_clk = "", DIR = I, SIGIS = CLK
+PORT m_axis_1_reset = "", DIR = I, SIGIS = RST
+PORT m_axis_1_tdata = TDATA, BUS=M_AXIS_1, DIR = O, VEC = [(axis_data_width-1):0]
+PORT m_axis_1_tkeep = TKEEP, BUS=M_AXIS_1, DIR = O, VEC = [(axis_tkeep_width-1):0]
+PORT m_axis_1_tlast = TLAST, BUS=M_AXIS_1, DIR = O
+PORT m_axis_1_tvalid = TVALID, BUS=M_AXIS_1, DIR = O
+PORT m_axis_1_tready = TREADY, BUS=M_AXIS_1, DIR = I
+PORT m_axis_1_tuser_in_port = TUSER_IN_PORT, BUS=M_AXIS_1, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_1_tuser_in_vport = TUSER_IN_VPORT, BUS=M_AXIS_1, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_1_tuser_out_port = TUSER_OUT_PORT, BUS=M_AXIS_1, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_1_tuser_out_vport = TUSER_OUT_VPORT, BUS=M_AXIS_1, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_1_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=M_AXIS_1, DIR = O, VEC = [(axis_tuser_packet_length_width-1):0]
+
+PORT m_axis_2_clk = "", DIR = I, SIGIS = CLK
+PORT m_axis_2_reset = "", DIR = I, SIGIS = RST
+PORT m_axis_2_tdata = TDATA, BUS=M_AXIS_2, DIR = O, VEC = [(axis_data_width-1):0]
+PORT m_axis_2_tkeep = TKEEP, BUS=M_AXIS_2, DIR = O, VEC = [(axis_tkeep_width-1):0]
+PORT m_axis_2_tlast = TLAST, BUS=M_AXIS_2, DIR = O
+PORT m_axis_2_tvalid = TVALID, BUS=M_AXIS_2, DIR = O
+PORT m_axis_2_tready = TREADY, BUS=M_AXIS_2, DIR = I
+PORT m_axis_2_tuser_in_port = TUSER_IN_PORT, BUS=M_AXIS_2, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_2_tuser_in_vport = TUSER_IN_VPORT, BUS=M_AXIS_2, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_2_tuser_out_port = TUSER_OUT_PORT, BUS=M_AXIS_2, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_2_tuser_out_vport = TUSER_OUT_VPORT, BUS=M_AXIS_2, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_2_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=M_AXIS_2, DIR = O, VEC = [(axis_tuser_packet_length_width-1):0]
+
+PORT m_axis_3_clk = "", DIR = I, SIGIS = CLK
+PORT m_axis_3_reset = "", DIR = I, SIGIS = RST
+PORT m_axis_3_tdata = TDATA, BUS=M_AXIS_3, DIR = O, VEC = [(axis_data_width-1):0]
+PORT m_axis_3_tkeep = TKEEP, BUS=M_AXIS_3, DIR = O, VEC = [(axis_tkeep_width-1):0]
+PORT m_axis_3_tlast = TLAST, BUS=M_AXIS_3, DIR = O
+PORT m_axis_3_tvalid = TVALID, BUS=M_AXIS_3, DIR = O
+PORT m_axis_3_tready = TREADY, BUS=M_AXIS_3, DIR = I
+PORT m_axis_3_tuser_in_port = TUSER_IN_PORT, BUS=M_AXIS_3, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_3_tuser_in_vport = TUSER_IN_VPORT, BUS=M_AXIS_3, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_3_tuser_out_port = TUSER_OUT_PORT, BUS=M_AXIS_3, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_3_tuser_out_vport = TUSER_OUT_VPORT, BUS=M_AXIS_3, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_3_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=M_AXIS_3, DIR = O, VEC = [(axis_tuser_packet_length_width-1):0]
+
+PORT m_axis_4_clk = "", DIR = I, SIGIS = CLK
+PORT m_axis_4_reset = "", DIR = I, SIGIS = RST
+PORT m_axis_4_tdata = TDATA, BUS=M_AXIS_4, DIR = O, VEC = [(axis_data_width-1):0]
+PORT m_axis_4_tkeep = TKEEP, BUS=M_AXIS_4, DIR = O, VEC = [(axis_tkeep_width-1):0]
+PORT m_axis_4_tlast = TLAST, BUS=M_AXIS_4, DIR = O
+PORT m_axis_4_tvalid = TVALID, BUS=M_AXIS_4, DIR = O
+PORT m_axis_4_tready = TREADY, BUS=M_AXIS_4, DIR = I
+PORT m_axis_4_tuser_in_port = TUSER_IN_PORT, BUS=M_AXIS_4, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_4_tuser_in_vport = TUSER_IN_VPORT, BUS=M_AXIS_4, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_4_tuser_out_port = TUSER_OUT_PORT, BUS=M_AXIS_4, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_4_tuser_out_vport = TUSER_OUT_VPORT, BUS=M_AXIS_4, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_4_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=M_AXIS_4, DIR = O, VEC = [(axis_tuser_packet_length_width-1):0]
+
+PORT m_axis_5_clk = "", DIR = I, SIGIS = CLK
+PORT m_axis_5_reset = "", DIR = I, SIGIS = RST
+PORT m_axis_5_tdata = TDATA, BUS=M_AXIS_5, DIR = O, VEC = [(axis_data_width-1):0]
+PORT m_axis_5_tkeep = TKEEP, BUS=M_AXIS_5, DIR = O, VEC = [(axis_tkeep_width-1):0]
+PORT m_axis_5_tlast = TLAST, BUS=M_AXIS_5, DIR = O
+PORT m_axis_5_tvalid = TVALID, BUS=M_AXIS_5, DIR = O
+PORT m_axis_5_tready = TREADY, BUS=M_AXIS_5, DIR = I
+PORT m_axis_5_tuser_in_port = TUSER_IN_PORT, BUS=M_AXIS_5, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_5_tuser_in_vport = TUSER_IN_VPORT, BUS=M_AXIS_5, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_5_tuser_out_port = TUSER_OUT_PORT, BUS=M_AXIS_5, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_5_tuser_out_vport = TUSER_OUT_VPORT, BUS=M_AXIS_5, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_5_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=M_AXIS_5, DIR = O, VEC = [(axis_tuser_packet_length_width-1):0]
+
+PORT m_axis_6_clk = "", DIR = I, SIGIS = CLK
+PORT m_axis_6_reset = "", DIR = I, SIGIS = RST
+PORT m_axis_6_tdata = TDATA, BUS=M_AXIS_6, DIR = O, VEC = [(axis_data_width-1):0]
+PORT m_axis_6_tkeep = TKEEP, BUS=M_AXIS_6, DIR = O, VEC = [(axis_tkeep_width-1):0]
+PORT m_axis_6_tlast = TLAST, BUS=M_AXIS_6, DIR = O
+PORT m_axis_6_tvalid = TVALID, BUS=M_AXIS_6, DIR = O
+PORT m_axis_6_tready = TREADY, BUS=M_AXIS_6, DIR = I
+PORT m_axis_6_tuser_in_port = TUSER_IN_PORT, BUS=M_AXIS_6, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_6_tuser_in_vport = TUSER_IN_VPORT, BUS=M_AXIS_6, DIR = O, VEC = [(axis_tuser_in_port_width-1):0]
+PORT m_axis_6_tuser_out_port = TUSER_OUT_PORT, BUS=M_AXIS_6, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_6_tuser_out_vport = TUSER_OUT_VPORT, BUS=M_AXIS_6, DIR = O, VEC = [(axis_tuser_out_port_width-1):0]
+PORT m_axis_6_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=M_AXIS_6, DIR = O, VEC = [(axis_tuser_packet_length_width-1):0]
+
+PORT qdr_a_k = "", DIR = O
+PORT qdr_a_k_n = "", DIR = O
+PORT qdr_a_c = "", DIR = O
+PORT qdr_a_c_n = "", DIR = O
+PORT qdr_a_cq = "", DIR = I
+PORT qdr_a_cq_n = "", DIR = I
+PORT qdr_a_sa = "", DIR = O, VEC = [18:0]
+PORT qdr_a_r_n = "", DIR = O
+PORT qdr_a_q = "", DIR = I, VEC = [35:0]
+PORT qdr_a_w_n = "", DIR = O
+PORT qdr_a_bw_n = "", DIR = O, VEC = [3:0]
+PORT qdr_a_d = "", DIR = O, VEC = [35:0]
+PORT qdr_a_dll_off_n = "", DIR = O
+
+PORT qdr_b_k = "", DIR = O
+PORT qdr_b_k_n = "", DIR = O
+PORT qdr_b_c = "", DIR = O
+PORT qdr_b_c_n = "", DIR = O
+PORT qdr_b_cq = "", DIR = I
+PORT qdr_b_cq_n = "", DIR = I
+PORT qdr_b_sa = "", DIR = O, VEC = [18:0]
+PORT qdr_b_r_n = "", DIR = O
+PORT qdr_b_q = "", DIR = I, VEC = [35:0]
+PORT qdr_b_w_n = "", DIR = O
+PORT qdr_b_bw_n = "", DIR = O, VEC = [3:0]
+PORT qdr_b_d = "", DIR = O, VEC = [35:0]
+PORT qdr_b_dll_off_n = "", DIR = O
+
+PORT chipscope_0 = "", DIR = I, VEC = [35:0]
+PORT chipscope_1 = "", DIR = I, VEC = [35:0]
+PORT chipscope_2 = "", DIR = I, VEC = [35:0]
+
+END

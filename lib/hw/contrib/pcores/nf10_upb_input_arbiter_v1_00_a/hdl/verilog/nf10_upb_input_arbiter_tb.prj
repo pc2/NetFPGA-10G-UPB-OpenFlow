@@ -1,0 +1,3 @@
+verilog work "nf10_upb_input_arbiter_flex.v"
+verilog work "nf10_upb_input_arbiter_tb.v"
+

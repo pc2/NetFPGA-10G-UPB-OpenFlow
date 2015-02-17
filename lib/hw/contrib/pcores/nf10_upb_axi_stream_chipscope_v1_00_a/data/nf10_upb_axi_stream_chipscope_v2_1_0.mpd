@@ -1,0 +1,62 @@
+# UPB AXI-4 Stream ChipScope core
+#
+# Copyright (c) 2014, 2015 Jörg Niklas
+# osjsn@niklasfamily.de
+#
+# This file is part of the NetFPGA 10G UPB OpenFlow Switch project.
+#
+# Project Group "On-the-Fly Networking for Big Data"
+# SFB 901 "On-The-Fly Computing"
+#
+# University of Paderborn
+# Computer Engineering Group
+# Pohlweg 47 - 49
+# 33098 Paderborn
+# Germany
+#
+#
+# This file is free code: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License version 2.1 as
+# published by the Free Software Foundation.
+#
+# This file is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this project. If not, see <http://www.gnu.org/licenses/>.
+#
+
+BEGIN nf10_upb_axi_stream_chipscope
+
+OPTION IPTYPE = PERIPHERAL
+OPTION STYLE = BLACKBOX
+OPTION IP_GROUP = UPB
+OPTION DESC = NetFPGA-10G AXI Stream ChipScope Core
+
+BUS_INTERFACE BUS = AXIS, BUS_STD = AXIS, BUS_TYPE = MONITOR
+
+PARAMETER registered_bus = 1, DT = INTEGER, RANGE = (0:1)
+PARAMETER registered_chipscope = 0, DT = INTEGER, RANGE = (0:1)
+PARAMETER axis_data_width = 256, DT = integer
+PARAMETER axis_tkeep_width = 32, DT = integer
+PARAMETER axis_tuser_in_port_width = 3, DT = integer
+PARAMETER axis_tuser_out_port_width = 8, DT = integer
+PARAMETER axis_tuser_packet_length_width = 14, DT = integer
+PORT clk = "", DIR = I, SIGIS = CLK, ASSIGNMENT = REQUIRE
+PORT reset = "", DIR = I, SIGIS = RST
+PORT axis_tvalid = TVALID, BUS=AXIS, DIR = I
+PORT axis_tready = TREADY, BUS=AXIS, DIR = I
+PORT axis_tdata = TDATA, BUS=AXIS, DIR = I, VEC = [(axis_data_width-1):0]
+PORT axis_tkeep = TKEEP, BUS=AXIS, DIR = I, VEC = [(axis_tkeep_width-1):0]
+PORT axis_tlast = TLAST, BUS=AXIS, DIR = I
+PORT axis_tuser_packet_length = TUSER_PACKET_LENGTH, BUS=AXIS, DIR = I, VEC = [(axis_tuser_packet_length_width-1):0]
+PORT axis_tuser_in_port = TUSER_IN_PORT, BUS=AXIS, DIR = I, VEC = [(axis_tuser_in_port_width-1):0]
+PORT axis_tuser_in_vport = TUSER_IN_VPORT, BUS=AXIS, DIR = I, VEC = [(axis_tuser_in_port_width-1):0]
+PORT axis_tuser_out_port = TUSER_OUT_PORT, BUS=AXIS, DIR = I, VEC = [(axis_tuser_out_port_width-1):0]
+PORT axis_tuser_out_vport = TUSER_OUT_VPORT, BUS=AXIS, DIR = I, VEC = [(axis_tuser_out_port_width-1):0]
+PORT chipscope_control = "", DIR = IO, THREE_STATE = FALSE, VEC = [35:0], ASSIGNMENT = REQUIRE
+
+END
+

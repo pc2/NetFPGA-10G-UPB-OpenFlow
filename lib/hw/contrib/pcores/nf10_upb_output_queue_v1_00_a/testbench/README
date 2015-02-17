@@ -1,0 +1,9 @@
+
+A VHDL functional model of the CY7C1515JV18 can be downloaded at:
+
+http://www.cypress.com/?rID=17142
+
+(filename CY7C1515JV18.zip). Apply the patch CY7C1515JV18.vhd.patch to accurately simulate the QDR2-SRAM.
+
+
+

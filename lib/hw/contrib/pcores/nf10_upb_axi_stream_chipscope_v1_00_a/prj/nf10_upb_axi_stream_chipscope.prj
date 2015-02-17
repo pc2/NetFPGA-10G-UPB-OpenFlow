@@ -1,0 +1,71 @@
+#--  Synopsys, Inc.
+#--  Version G-2012.09-SP1 
+#--  Project file /home/jsn/repos/upb/pgotfnetworking-netfpga/lib/hw/contrib/pcores/nf10_upb_axi_stream_chipscope_v1_00_a/prj/f10_upb_axi_stream_chipscope.prj
+#--  Written on Fri Oct  3 12:03:50 2014
+
+
+#project files
+add_file -verilog "../../nf10_upb_lib/hdl/SystemVerilog/axis_conform_check.v"
+add_file -verilog "../hdl/verilog/nf10_upb_axi_stream_chipscope.v"
+
+
+#implementation: "netlist"
+impl -add netlist -type fpga
+
+#
+#implementation attributes
+
+set_option -vlog_std sysv
+set_option -project_relative_includes 1
+
+#device options
+set_option -technology Virtex5
+set_option -part XC5VTX240T
+set_option -package FF1759
+set_option -speed_grade -2
+set_option -part_companion ""
+
+#compilation/mapping options
+set_option -use_fsm_explorer 1
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+set_option -srs_instrumentation 1
+
+# xilinx_options
+set_option -RWCheckOnRam 1
+
+# Xilinx Virtex2
+set_option -run_prop_extract 1
+set_option -maxfan 10000
+set_option -disable_io_insertion 1
+set_option -pipe 1
+set_option -update_models_cp 0
+set_option -retiming 1
+set_option -no_sequential_opt 0
+set_option -fix_gated_and_generated_clocks 1
+
+# Xilinx Virtex5
+set_option -enable_prepacking 1
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 0
+set_option -resource_sharing 1
+set_option -multi_file_compilation_unit 1
+
+#VIF options
+set_option -write_vif 0
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 1
+
+#set result format/file last
+project -result_file "../netlist/nf10_upb_axi_stream_chipscope.edf"
+
+#design plan options
+impl -active "netlist"

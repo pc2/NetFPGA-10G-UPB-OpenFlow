@@ -1,0 +1,16 @@
+DISCLAIMER NOTICE
+We are not affiliated, associated, authorized, endorsed by, or in any
+way officially connected with Xilinx, Inc. or any of its subsidiaries or
+its affiliates.  In no event whatsoever shall Xilinx, Inc. or any of its
+subsidiaries or its affiliates have any warranty or support commitment
+for this software or liability for loss, injury or damage in connection
+with this software, including but not limited to the use or display
+thereof.
+---
+172,173c172,174
+<     reg   [3:0]       reset_rxrecclk_r  = 4'b1111 /* synthesis syn_srlstyle = "registers" */ ;
+<     reg   [3:0]       reset_rxusrclk2_r = 4'b1111 /* synthesis syn_srlstyle = "registers" */ ;
+---
+>     // Modified by James to workaround timing issue
+>     reg   [3:0]       reset_rxrecclk_r  = 4'b1111 /* synthesis syn_srlstyle = "registers" syn_maxfan = 10*/ ;
+>     reg   [3:0]       reset_rxusrclk2_r = 4'b1111 /* synthesis syn_srlstyle = "registers" syn_maxfan = 10*/ ;

@@ -1,0 +1,107 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_upb_10g_interface_v2_1_0.mpd
+#
+#  Library:
+#        hw/std/pcores/nf10_10g_interface_v1_20_a
+#
+#  Author:
+#        Thomas Löcke
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+BEGIN nf10_upb_10g_interface
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = MIXED
+#OPTION USAGE_LEVEL = BASE_USER
+OPTION RUN_NGCBUILD = TRUE
+OPTION STYLE = MIX
+OPTION IP_GROUP = UPB
+OPTION DESC = NetFPGA-10G 10G Ethernet Interface
+OPTION LONG_DESC = NetFPGA-10G 10G Ethernet Interface and Wrapper to AXI
+
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_XAUI_REVERSE = 0, DT = INTEGER, RANGE = (0,1)
+PARAMETER C_XGMAC_CONFIGURATION = 0x08358B000000000000, DT=STD_LOGIC_VECTOR
+PARAMETER C_XAUI_CONFIGURATION = 0x00, DT=STD_LOGIC_VECTOR
+PARAMETER C_CHIPSCOPE_INSTANCE = 0, DT = INTEGER, RANGE = (0,1)
+
+## Ports
+#PORT axi_aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS:S_AXIS, ASSIGNMENT = REQUIRE
+PORT axi_resetn = "", DIR = I, SIGIS = RST
+
+#PORT m_axis_aresetn = ARESETN, DIR = O, BUS = M_AXIS
+PORT m_axis_tdata = TDATA, DIR = O, VEC = [63:0], BUS = M_AXIS
+PORT m_axis_tkeep = TKEEP, DIR = O, VEC = [7:0], BUS = M_AXIS
+PORT m_axis_tuser = TUSER, DIR = O, VEC = [0:0], BUS = M_AXIS
+PORT m_axis_tvalid = TVALID, DIR = O, BUS = M_AXIS
+PORT m_axis_tready = TREADY, DIR = I, BUS = M_AXIS
+PORT m_axis_tlast = TLAST, DIR = O, BUS = M_AXIS
+
+#PORT s_axis_aresetn = ARESETN, DIR = I, BUS = S_AXIS
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [63:0], BUS = S_AXIS
+PORT s_axis_tkeep = TKEEP, DIR = I, VEC = [7:0], BUS = S_AXIS
+PORT s_axis_tuser = TUSER, DIR = I, VEC = [0:0], BUS = S_AXIS
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+#XAUI interface
+PORT refclk = "", DIR = I, SIGIS = CLK
+PORT dclk = "", DIR = I, SIGIS = CLK
+PORT clk156 = "", DIR = O, SIGIS = CLK
+
+PORT xaui_tx_l0_p = "", DIR = O
+PORT xaui_tx_l0_n = "", DIR = O
+PORT xaui_tx_l1_p = "", DIR = O
+PORT xaui_tx_l1_n = "", DIR = O
+PORT xaui_tx_l2_p = "", DIR = O
+PORT xaui_tx_l2_n = "", DIR = O
+PORT xaui_tx_l3_p = "", DIR = O
+PORT xaui_tx_l3_n = "", DIR = O
+
+PORT xaui_rx_l0_p = "", DIR = I, INITIALVAL = VCC
+PORT xaui_rx_l0_n = "", DIR = I, INITIALVAL = GND
+PORT xaui_rx_l1_p = "", DIR = I, INITIALVAL = VCC
+PORT xaui_rx_l1_n = "", DIR = I, INITIALVAL = GND
+PORT xaui_rx_l2_p = "", DIR = I, INITIALVAL = VCC
+PORT xaui_rx_l2_n = "", DIR = I, INITIALVAL = GND
+PORT xaui_rx_l3_p = "", DIR = I, INITIALVAL = VCC
+PORT xaui_rx_l3_n = "", DIR = I, INITIALVAL = GND
+
+#flow control interface
+PORT pause_req = "", DIR = I
+PORT pause_val = "", DIR = I, VEC = [15:0]
+
+
+END

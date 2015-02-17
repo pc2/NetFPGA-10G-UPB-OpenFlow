@@ -1,0 +1,172 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_upb_dma_v2_1_0.pao
+#
+#  Library:
+#        hw/contrib/pcores/nf10_upb_dma_v1_00_a
+#
+#  Author:
+#        Mario Flajslik
+#        Modified by Michael Lass
+#
+#  Description:
+#        MPD for dma pcore
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+BEGIN nf10_upb_dma
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION HDL = MIXED
+OPTION STYLE = MIX
+OPTION USAGE_LEVEL = BASE_USER
+OPTION RUN_NGCBUILD = TRUE
+OPTION IMP_NETLIST = TRUE
+OPTION IP_GROUP = Communication High-Speed
+OPTION DESC = UPB NetFPGA-10G DMA (PCIe)
+OPTION LONG_DESC = UPB NetFPGA-10G DMA Engine (PCIe)
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = M_AXI, BUS_STD = AXI, BUS_TYPE = MASTER
+BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
+
+PARAMETER C_M_AXI_PROTOCOL = AXI4LITE, BUS = M_AXI, DT = STRING, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_M_AXI_SUPPORTS_THREADS = 0, DT = integer, BUS = M_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_M_AXI_SUPPORTS_READ = 1, DT = integer, BUS = M_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_M_AXI_SUPPORTS_WRITE = 1, DT = integer, BUS = M_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_M_AXI_SUPPORTS_NARROW_BURST = 0, DT = integer, BUS = M_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_INTERCONNECT_M_AXI_READ_ISSUING = 1, DT = integer, BUS = M_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_INTERCONNECT_M_AXI_WRITE_ISSUING = 1, DT = integer, BUS = M_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+
+PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, BUS = S_AXI, DT = STRING, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_BASEADDR = 0xffffffff, DT = std_logic_vector(31 downto 0), ADDRESS = BASE, PAIR = C_HIGHADDR, BUS = S_AXI, MIN_SIZE = 0x01000, ASSIGNMENT = REQUIRE
+PARAMETER C_HIGHADDR = 0x00000000, DT = std_logic_vector(31 downto 0), ADDRESS = HIGH, PAIR = C_BASEADDR, BUS = S_AXI, ASSIGNMENT = REQUIRE
+
+#PCIe interface
+PORT reset_n = "", DIR = I, SIGIS = RST
+PORT pcie_clk_p = "", DIR = I, SIGIS = CLK, ASSIGNMENT = REQUIRE
+PORT pcie_clk_n = "", DIR = I, SIGIS = CLK, ASSIGNMENT = REQUIRE
+PORT pcie_clk = "", DIR = O , SIGIS = CLK, CLK_FREQ_HZ = 125000000
+PORT pci_exp_0_txp = "", DIR = O
+PORT pci_exp_0_txn = "", DIR = O
+PORT pci_exp_0_rxp = "", DIR = I, INITIALVAL = VCC
+PORT pci_exp_0_rxn = "", DIR = I, INITIALVAL = GND
+PORT pci_exp_1_txp = "", DIR = O
+PORT pci_exp_1_txn = "", DIR = O
+PORT pci_exp_1_rxp = "", DIR = I, INITIALVAL = VCC
+PORT pci_exp_1_rxn = "", DIR = I, INITIALVAL = GND
+PORT pci_exp_2_txp = "", DIR = O
+PORT pci_exp_2_txn = "", DIR = O
+PORT pci_exp_2_rxp = "", DIR = I, INITIALVAL = VCC
+PORT pci_exp_2_rxn = "", DIR = I, INITIALVAL = GND
+PORT pci_exp_3_txp = "", DIR = O
+PORT pci_exp_3_txn = "", DIR = O
+PORT pci_exp_3_rxp = "", DIR = I, INITIALVAL = VCC
+PORT pci_exp_3_rxn = "", DIR = I, INITIALVAL = GND
+PORT pci_exp_4_txp = "", DIR = O
+PORT pci_exp_4_txn = "", DIR = O
+PORT pci_exp_4_rxp = "", DIR = I, INITIALVAL = VCC
+PORT pci_exp_4_rxn = "", DIR = I, INITIALVAL = GND
+PORT pci_exp_5_txp = "", DIR = O
+PORT pci_exp_5_txn = "", DIR = O
+PORT pci_exp_5_rxp = "", DIR = I, INITIALVAL = VCC
+PORT pci_exp_5_rxn = "", DIR = I, INITIALVAL = GND
+PORT pci_exp_6_txp = "", DIR = O
+PORT pci_exp_6_txn = "", DIR = O
+PORT pci_exp_6_rxp = "", DIR = I, INITIALVAL = VCC
+PORT pci_exp_6_rxn = "", DIR = I, INITIALVAL = GND
+PORT pci_exp_7_txp = "", DIR = O
+PORT pci_exp_7_txn = "", DIR = O
+PORT pci_exp_7_rxp = "", DIR = I, INITIALVAL = VCC
+PORT pci_exp_7_rxn = "", DIR = I, INITIALVAL = GND
+
+## connect AXI master
+PORT M_AXI_LITE_ACLK = "", DIR = I, SIGIS = CLK, BUS = M_AXI, ASSIGNMENT = REQUIRE
+PORT M_AXI_LITE_ARESETN = ARESETN, DIR = I, SIGIS = RST, BUS = M_AXI
+PORT M_AXI_LITE_AWADDR = AWADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_AXI
+PORT M_AXI_LITE_AWVALID = AWVALID, DIR = O, BUS = M_AXI
+PORT M_AXI_LITE_AWREADY = AWREADY, DIR = I, BUS = M_AXI
+PORT M_AXI_LITE_WDATA = WDATA, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_AXI
+PORT M_AXI_LITE_WSTRB = WSTRB, DIR = O, VEC = [3:0], ENDIAN = LITTLE, BUS = M_AXI
+PORT M_AXI_LITE_WVALID = WVALID, DIR = O, BUS = M_AXI
+PORT M_AXI_LITE_WREADY = WREADY, DIR = I, BUS = M_AXI
+PORT M_AXI_LITE_BRESP = BRESP, DIR = I, VEC = [1:0], BUS = M_AXI
+PORT M_AXI_LITE_BVALID = BVALID, DIR = I, BUS = M_AXI
+PORT M_AXI_LITE_BREADY = BREADY, DIR = O, BUS = M_AXI
+PORT M_AXI_LITE_ARADDR = ARADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_AXI
+PORT M_AXI_LITE_ARVALID = ARVALID, DIR = O, BUS = M_AXI
+PORT M_AXI_LITE_ARREADY = ARREADY, DIR = I, BUS = M_AXI
+PORT M_AXI_LITE_RDATA = RDATA, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = M_AXI
+PORT M_AXI_LITE_RRESP = RRESP, DIR = I, VEC = [1:0], BUS = M_AXI
+PORT M_AXI_LITE_RVALID = RVALID, DIR = I, BUS = M_AXI
+PORT M_AXI_LITE_RREADY = RREADY, DIR = O, BUS = M_AXI
+
+## connect AXI slave for testing
+PORT S_AXI_ACLK = "", DIR = I, SIGIS = CLK, BUS = S_AXI, ASSIGNMENT = REQUIRE
+PORT S_AXI_ARESETN = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI
+PORT S_AXI_AWADDR = AWADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_AWVALID = AWVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_AWREADY = AWREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_WDATA = WDATA, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_WSTRB = WSTRB, DIR = I, VEC = [3:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_WVALID = WVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_WREADY = WREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_BRESP = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT S_AXI_BVALID = BVALID, DIR = O, BUS = S_AXI
+PORT S_AXI_BREADY = BREADY, DIR = I, BUS = S_AXI
+PORT S_AXI_ARADDR = ARADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_ARVALID = ARVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_ARREADY = ARREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_RDATA = RDATA, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_RRESP = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT S_AXI_RVALID = RVALID, DIR = O, BUS = S_AXI
+PORT S_AXI_RREADY = RREADY, DIR = I, BUS = S_AXI
+
+## connect MACs
+PORT M_AXIS_ACLK = "", DIR = I, SIGIS = CLK, BUS = M_AXIS, ASSIGNMENT = REQUIRE
+PORT M_AXIS_TDATA = TDATA, DIR = O, VEC = [63:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT M_AXIS_TSTRB = TSTRB, DIR = O, VEC = [7:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT M_AXIS_TUSER = TUSER, DIR = O, VEC = [127:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT M_AXIS_TVALID = TVALID, DIR = O, BUS = M_AXIS
+PORT M_AXIS_TREADY = TREADY, DIR = I, BUS = M_AXIS
+PORT M_AXIS_TLAST = TLAST, DIR = O, BUS = M_AXIS
+
+PORT S_AXIS_ACLK = "", DIR = I, SIGIS = CLK, BUS = S_AXIS, ASSIGNMENT = REQUIRE
+PORT S_AXIS_TDATA = TDATA, DIR = I, VEC = [63:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT S_AXIS_TSTRB = TSTRB, DIR = I, VEC = [7:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT S_AXIS_TUSER = TUSER, DIR = I, VEC = [127:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT S_AXIS_TVALID = TVALID, DIR = I, BUS = S_AXIS
+PORT S_AXIS_TREADY = TREADY, DIR = O, BUS = S_AXIS
+PORT S_AXIS_TLAST = TLAST, DIR = I, BUS = S_AXIS
+
+PORT chipscope_control_0 = "", DIR = IO, THREE_STATE = FALSE, VEC = [35:0]
+PORT chipscope_control_1 = "", DIR = IO, THREE_STATE = FALSE, VEC = [35:0]
+PORT chipscope_control_2 = "", DIR = IO, THREE_STATE = FALSE, VEC = [35:0]
+
+END

@@ -1,0 +1,12 @@
+##############################################################################
+## Filename:          /home/tloecke/pgotfnetworking-netfpga/contrib-projects/upb_loopback/hw/pcores/nf10_upb_10g_input_v1_00_a/data/nf10_upb_10g_input_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Wed Mar 26 14:24:33 2014 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib nf10_upb_10g_input_v1_00_a nf10_upb_10g_input verilog
+lib nf10_upb_10g_input_v1_00_a width_divider verilog
+lib nf10_upb_10g_input_v1_00_a ../../../nf10_upb_lib/hdl/verilog/flow_ctrl verilog
+lib nf10_upb_10g_input_v1_00_a width_multiplier verilog
+lib nf10_upb_10g_input_v1_00_a AsyncWidthConverter verilog
+lib nf10_upb_10g_input_v1_00_a ../../../nf10_upb_lib/hdl/verilog/nf10_upb_packet_fifo verilog

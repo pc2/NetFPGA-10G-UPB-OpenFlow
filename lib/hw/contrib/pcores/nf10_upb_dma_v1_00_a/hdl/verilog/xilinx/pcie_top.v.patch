@@ -1,0 +1,65 @@
+DISCLAIMER NOTICE
+We are not affiliated, associated, authorized, endorsed by, or in any
+way officially connected with Xilinx, Inc. or any of its subsidiaries or
+its affiliates.  In no event whatsoever shall Xilinx, Inc. or any of its
+subsidiaries or its affiliates have any warranty or support commitment
+for this software or liability for loss, injury or damage in connection
+with this software, including but not limited to the use or display
+thereof.
+---
+658c658
+<    localparam [1:0] LINKCAPABILITYASPMSUPPORT_CALC =  LINKCAPABILITYASPMSUPPORTEN ? 2'b11:2'b01; 
+---
+>    localparam [1:0] LINKCAPABILITYASPMSUPPORT_CALC =  2'b00; // disable ASPM as the pcie block has too much problems with it
+1251c1251
+<    wire       trn_reset_n;
+---
+>    reg        trn_reset_n;
+2008c2008,2010
+< assign trn_reset_n = PLLLKDET_OUT[0] && clock_lock && user_reset_workaround_n; //d_user_reset_n;  
+---
+> always@(posedge core_clk)
+>  trn_reset_n <= PLLLKDET_OUT[0] && clock_lock && user_reset_workaround_n; //d_user_reset_n;  
+> 
+2021a2024,2040
+> reg [7:0] pipe_rx_data_l0_ff, pipe_rx_data_l1_ff, pipe_rx_data_l2_ff, pipe_rx_data_l3_ff, pipe_rx_data_l4_ff, pipe_rx_data_l5_ff, pipe_rx_data_l6_ff, pipe_rx_data_l7_ff;
+> reg [7:0] pipe_rx_valid_ff;
+> reg [7:0] pipe_rx_data_k_ff;
+> 
+> always @ (posedge core_clk) begin
+> 	pipe_rx_data_l0_ff <= pipe_rx_data_l0;
+> 	pipe_rx_data_l1_ff <= pipe_rx_data_l1;
+> 	pipe_rx_data_l2_ff <= pipe_rx_data_l2;
+> 	pipe_rx_data_l3_ff <= pipe_rx_data_l3;
+> 	pipe_rx_data_l4_ff <= pipe_rx_data_l4;
+> 	pipe_rx_data_l5_ff <= pipe_rx_data_l5;
+> 	pipe_rx_data_l6_ff <= pipe_rx_data_l6;
+> 	pipe_rx_data_l7_ff <= pipe_rx_data_l7;
+> 	pipe_rx_valid_ff <= pipe_rx_valid;
+> 	pipe_rx_data_k_ff <= pipe_rx_data_k;
+> end
+> 
+2028,2029c2047,2048
+<    .pipe_rx_data_k(pipe_rx_data_k),
+<    .pipe_rx_valid(pipe_rx_valid),
+---
+>    .pipe_rx_data_k(pipe_rx_data_k_ff),
+>    .pipe_rx_valid(pipe_rx_valid_ff),
+2034,2041c2053,2060
+<    .pipe_rx_data_l0(pipe_rx_data_l0),
+<    .pipe_rx_data_l1(pipe_rx_data_l1),
+<    .pipe_rx_data_l2(pipe_rx_data_l2),
+<    .pipe_rx_data_l3(pipe_rx_data_l3),
+<    .pipe_rx_data_l4(pipe_rx_data_l4),
+<    .pipe_rx_data_l5(pipe_rx_data_l5),
+<    .pipe_rx_data_l6(pipe_rx_data_l6),
+<    .pipe_rx_data_l7(pipe_rx_data_l7),
+---
+>    .pipe_rx_data_l0(pipe_rx_data_l0_ff),
+>    .pipe_rx_data_l1(pipe_rx_data_l1_ff),
+>    .pipe_rx_data_l2(pipe_rx_data_l2_ff),
+>    .pipe_rx_data_l3(pipe_rx_data_l3_ff),
+>    .pipe_rx_data_l4(pipe_rx_data_l4_ff),
+>    .pipe_rx_data_l5(pipe_rx_data_l5_ff),
+>    .pipe_rx_data_l6(pipe_rx_data_l6_ff),
+>    .pipe_rx_data_l7(pipe_rx_data_l7_ff),

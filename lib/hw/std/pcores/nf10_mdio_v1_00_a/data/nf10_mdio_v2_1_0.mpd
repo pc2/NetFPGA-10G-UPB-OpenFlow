@@ -1,0 +1,110 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_mdio_v2_1_0.mpd
+#
+#  Library:
+#        hw/std/pcores/nf10_mdio_v1_00_a
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+BEGIN nf10_mdio
+
+## Peripheral Options
+OPTION STYLE = HDL
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = VHDL
+OPTION USAGE_LEVEL = BASE_USER
+OPTION RUN_NGCBUILD = TRUE
+OPTION DESC = NetFPGA-10G MDIO Engine
+OPTION LONG_DESC = 'NetFPGA-10G MDIO Engine'
+OPTION IP_GROUP = Communication Low-Speed:MICROBLAZE
+
+## Bus Interfaces
+BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
+IO_INTERFACE IO_IF = ethernet_0, IO_TYPE = XIL_AXIETHERNET_V1
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_S_AXI_PROTOCOL = AXI4, BUS = S_AXI, VALUES = (AXI4LITE=AXI4LITE, AXI4=AXI4)
+PARAMETER C_FAMILY = virtex6, DT = STRING
+PARAMETER C_BASEADDR = 0xffffffff, DT = std_logic_vector, ADDRESS = BASE, PAIR = C_HIGHADDR, BUS = S_AXI, MIN_SIZE = 0x02000, ASSIGNMENT = REQUIRE
+PARAMETER C_HIGHADDR = 0x00000000, DT = std_logic_vector, ADDRESS = HIGH, PAIR = C_BASEADDR, BUS = S_AXI, ASSIGNMENT = REQUIRE
+PARAMETER C_S_AXI_ACLK_PERIOD_PS = 10000, DT = INTEGER, BUS = S_AXI, ASSIGNMENT = REQUIRE, IO_IS = clk_freq
+PARAMETER C_S_AXI_ADDR_WIDTH = 32, DT = INTEGER, BUS = S_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXI_DATA_WIDTH = 32, DT = INTEGER, BUS = S_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXI_ID_WIDTH = 4, DT = INTEGER, BUS = S_AXI, RANGE = (1:16)
+PARAMETER C_INCLUDE_MDIO = 1, DT = INTEGER, RANGE = (1)
+PARAMETER C_INCLUDE_PHY_CONSTRAINTS = 1, DT = INTEGER, RANGE = (0,1), TYPE = NON_HDL
+PARAMETER C_INTERCONNECT_S_AXI_WRITE_ACCEPTANCE = 1, DT = INTEGER, TYPE = NON_HDL, BUS = S_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_INTERCONNECT_S_AXI_READ_ACCEPTANCE = 1, DT = INTEGER, TYPE = NON_HDL, BUS = S_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXI_SUPPORTS_NARROW_BURST = 0, DT = INTEGER, TYPE = NON_HDL, BUS = S_AXI, ASSIGNMENT = CONSTANT
+
+## Ports
+PORT S_AXI_ACLK = "", DIR = I, SIGIS = CLK, BUS = S_AXI, ASSIGNMENT = REQUIRE
+PORT S_AXI_ARESETN = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI
+PORT IP2INTC_Irpt = "", DIR = O, SIGIS = INTERRUPT, SENSITIVITY = EDGE_RISING, INTERRUPT_PRIORITY = HIGH
+PORT S_AXI_AWID = AWID, DIR = I, VEC = [(C_S_AXI_ID_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_AWADDR = AWADDR, DIR = I, VEC = [(C_S_AXI_ADDR_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_AWLEN = AWLEN, DIR = I, VEC = [7:0], BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_AWSIZE = AWSIZE, DIR = I, VEC = [2:0], BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_AWBURST = AWBURST, DIR = I, VEC = [1:0], BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_AWCACHE = AWCACHE, DIR = I, VEC = [3:0], BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_AWVALID = AWVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_AWREADY = AWREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_WDATA = WDATA, DIR = I, VEC = [(C_S_AXI_DATA_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_WSTRB = WSTRB, DIR = I, VEC = [((C_S_AXI_DATA_WIDTH/8)-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_WLAST = WLAST, DIR = I, BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_WVALID = WVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_WREADY = WREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_BID = BID, DIR = O, VEC = [(C_S_AXI_ID_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_BRESP = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT S_AXI_BVALID = BVALID, DIR = O, BUS = S_AXI
+PORT S_AXI_BREADY = BREADY, DIR = I, BUS = S_AXI
+PORT S_AXI_ARID = ARID, DIR = I, VEC = [(C_S_AXI_ID_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_ARADDR = ARADDR, DIR = I, VEC = [(C_S_AXI_ADDR_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_ARLEN = ARLEN, DIR = I, VEC = [7:0], BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_ARSIZE = ARSIZE, DIR = I, VEC = [2:0], BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_ARBURST = ARBURST, DIR = I, VEC = [1:0], BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_ARCACHE = ARCACHE, DIR = I, VEC = [3:0], BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_ARVALID = ARVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_ARREADY = ARREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_RID = RID, DIR = O, VEC = [(C_S_AXI_ID_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_RDATA = RDATA, DIR = O, VEC = [(C_S_AXI_DATA_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_RRESP = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT S_AXI_RLAST = RLAST, DIR = O, BUS = S_AXI, ISVALID = ([xstrncmp C_S_AXI_PROTOCOL  AXI4])
+PORT S_AXI_RVALID = RVALID, DIR = O, BUS = S_AXI
+PORT S_AXI_RREADY = RREADY, DIR = I, BUS = S_AXI
+PORT PHY_rst_n = "", DIR = O, SIGIS = RST
+PORT PHY_MDC = "", DIR = O, PERMIT = BASE_USER, ISVALID = (C_INCLUDE_MDIO==1), ASSIGNMENT = REQUIRE, DESC = 'Ethernet PHY Management Clock', IO_IF = ethernet_0, IO_IS = ETH_MDC
+PORT PHY_MDIO_I = "", DIR = I, ISVALID = (C_INCLUDE_MDIO==1), IO_IF = ethernet_0, IO_IS = ETH_MDIO_I
+PORT PHY_MDIO_O = "", DIR = O, ISVALID = (C_INCLUDE_MDIO==1), IO_IF = ethernet_0, IO_IS = ETH_MDIO_O
+PORT PHY_MDIO_T = "", DIR = O, ISVALID = (C_INCLUDE_MDIO==1), IO_IF = ethernet_0, IO_IS = ETH_MDIO_T
+PORT PHY_MDIO = "", DIR = IO, TRI_O = PHY_MDIO_O, TRI_T = PHY_MDIO_T, TRI_I = PHY_MDIO_I, THREE_STATE = TRUE, PERMIT = BASE_USER, ISVALID = (C_INCLUDE_MDIO==1), DESC = 'Ethernet PHY Management Data', IO_IF = ethernet_0, IO_IS = ETH_MDIO
+
+END

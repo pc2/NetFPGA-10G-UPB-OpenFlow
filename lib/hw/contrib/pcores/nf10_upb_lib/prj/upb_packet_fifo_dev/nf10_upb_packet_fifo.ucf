@@ -1,0 +1,4 @@
+
+#Created by Constraints Editor (xc5vtx240t-ff1759-2) - 2014/02/26
+NET "CLK" TNM_NET = CLK;
+TIMESPEC TS_CLK = PERIOD "CLK" 180 MHz HIGH 50%;

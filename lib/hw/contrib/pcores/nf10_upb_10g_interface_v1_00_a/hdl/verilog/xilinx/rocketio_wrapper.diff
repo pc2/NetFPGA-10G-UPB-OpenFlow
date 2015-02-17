@@ -1,0 +1,91 @@
+DISCLAIMER NOTICE
+We are not affiliated, associated, authorized, endorsed by, or in any
+way officially connected with Xilinx, Inc. or any of its subsidiaries or
+its affiliates.  In no event whatsoever shall Xilinx, Inc. or any of its
+subsidiaries or its affiliates have any warranty or support commitment
+for this software or liability for loss, injury or damage in connection
+with this software, including but not limited to the use or display
+thereof.
+---
+62c62,75
+< 
+---
+> ////////////////////////////////////////////////////////////////////////
+> //
+> //  NetFPGA-10G http://www.netfpga.org
+> //
+> //  Module:
+> //          rocketio_wrapper.v
+> //
+> //  Description:
+> //          RocketIO wrapper patched with Lane reverse
+> //                 
+> //  Revision history:
+> //          2010/12/8 hyzeng: Initial check-in
+> //
+> ////////////////////////////////////////////////////////////////////////
+70c83
+< (* CORE_GENERATION_INFO = "1.7" *) 
+---
+> 
+76c89,90
+<     parameter   WRAPPER_SIM_PLL_PERDIV2         = 9'h140   // Set to the VCO Unit Interval time
+---
+>     parameter   WRAPPER_SIM_PLL_PERDIV2         = 9'h140,   // Set to the VCO Unit Interval time
+>     parameter   REVERSE_LANES                   = 0 
+306a321,322
+> //synthesis attribute X_CORE_INFO of ROCKETIO_WRAPPER is "gtxwizard_v1_6, Coregen v11.2";
+> 
+659c675,677
+<         .TILE_CHAN_BOND_LEVEL_1      (0)
+---
+>         .TILE_CHAN_BOND_LEVEL_1      (0),
+>         
+>         .REVERSE_LANES               (REVERSE_LANES) 
+785c803
+<     //TILE0 GTX0
+---
+>     //TILE0 GTP0
+791c809
+<     ) tile0_gtx0_cc_2b_1skp_i (
+---
+>     ) tile0_gtp0_cc_2b_1skp_i (
+839c857
+<     //TILE0 GTX1
+---
+>     //TILE0 GTP1
+845c863
+<     ) tile0_gtx1_cc_2b_1skp_i (
+---
+>     ) tile0_gtp1_cc_2b_1skp_i (
+904c922,924
+<         .TILE_CHAN_BOND_LEVEL_1      (1)
+---
+>         .TILE_CHAN_BOND_LEVEL_1      (1),
+>         
+>         .REVERSE_LANES               (REVERSE_LANES) 
+1030c1050
+<     BUFG tile1_rxrecclk0_bufg0_i
+---
+>     /*BUFG tile1_rxrecclk0_bufg0_i
+1034c1054,1055
+<     );
+---
+>     );*/
+>     assign tile1_rxrecclk0_bufg_i = tile1_rxrecclk0_i;
+1038c1059
+<     //TILE1 GTX0
+---
+>     //TILE1 GTP0
+1044c1065
+<     ) tile1_gtx0_cc_2b_1skp_i (
+---
+>     ) tile1_gtp0_cc_2b_1skp_i (
+1098c1119
+<     //TILE1 GTX1
+---
+>     //TILE1 GTP1
+1104c1125
+<     ) tile1_gtx1_cc_2b_1skp_i (
+---
+>     ) tile1_gtp1_cc_2b_1skp_i (

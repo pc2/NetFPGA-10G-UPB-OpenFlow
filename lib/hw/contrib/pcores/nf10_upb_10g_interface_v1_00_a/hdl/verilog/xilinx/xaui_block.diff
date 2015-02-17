@@ -1,0 +1,39 @@
+DISCLAIMER NOTICE
+We are not affiliated, associated, authorized, endorsed by, or in any
+way officially connected with Xilinx, Inc. or any of its subsidiaries or
+its affiliates.  In no event whatsoever shall Xilinx, Inc. or any of its
+subsidiaries or its affiliates have any warranty or support commitment
+for this software or liability for loss, injury or damage in connection
+with this software, including but not limited to the use or display
+thereof.
+---
+55a56,70
+> ////////////////////////////////////////////////////////////////////////
+> //
+> //  NetFPGA-10G http://www.netfpga.org
+> //
+> //  Module:
+> //          xaui_block.v
+> //
+> //  Description:
+> //          XAUI block patched with Lane reverse
+> //                 
+> //  Revision history:
+> //          2010/12/8 hyzeng: Initial check-in
+> //
+> ////////////////////////////////////////////////////////////////////////
+> 
+59c74,75
+<     parameter   WRAPPER_SIM_GTXRESET_SPEEDUP = 0
+---
+>     parameter   WRAPPER_SIM_GTXRESET_SPEEDUP = 0,
+>     parameter   REVERSE_LANES = 0
+260c276,277
+<     .WRAPPER_SIM_PLL_PERDIV2         (9'h140)
+---
+>     .WRAPPER_SIM_PLL_PERDIV2         (9'h140),
+>     .REVERSE_LANES                   (REVERSE_LANES)
+535c552
+<   always @(posedge clk156 or posedge reset_txsync)
+---
+>   always @(posedge clk156)// or posedge reset_txsync)

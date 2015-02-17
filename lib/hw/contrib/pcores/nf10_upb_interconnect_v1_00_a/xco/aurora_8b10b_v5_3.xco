@@ -1,0 +1,111 @@
+##############################################################
+#
+# Xilinx Core Generator version 14.7
+# Date: Wed Jul  9 09:19:59 2014
+#
+##############################################################
+#
+#  This file contains the customisation parameters for a
+#  Xilinx CORE Generator IP GUI. It is strongly recommended
+#  that you do not manually alter this file as it may cause
+#  unexpected and unsupported behavior.
+#
+##############################################################
+#
+#  Generated from component: xilinx.com:ip:aurora_8b10b:5.3
+#
+##############################################################
+#
+NEWPROJECT .
+SETPROJECT .
+# BEGIN Project Options
+SET addpads = false
+SET asysymbol = true
+SET busformat = BusFormatAngleBracketNotRipped
+SET createndf = false
+SET designentry = Verilog
+SET device = xc5vtx240t
+SET devicefamily = virtex5
+SET flowvendor = Other
+SET formalverification = false
+SET foundationsym = false
+SET implementationfiletype = Ngc
+SET package = ff1759
+SET removerpms = false
+SET simulationfiles = Behavioral
+SET speedgrade = -2
+SET verilogsim = true
+SET vhdlsim = false
+# END Project Options
+# BEGIN Select
+SELECT Aurora_8B10B xilinx.com:ip:aurora_8b10b:5.3
+# END Select
+# BEGIN Parameters
+CSET backchannel_mode=Sidebands
+CSET c_aurora_lanes=10
+CSET c_column_used=left
+CSET c_gt_clock_1=GTXD8
+CSET c_gt_clock_2=None
+CSET c_gt_loc_1=X
+CSET c_gt_loc_10=X
+CSET c_gt_loc_11=9
+CSET c_gt_loc_12=10
+CSET c_gt_loc_13=7
+CSET c_gt_loc_14=8
+CSET c_gt_loc_15=5
+CSET c_gt_loc_16=6
+CSET c_gt_loc_17=3
+CSET c_gt_loc_18=4
+CSET c_gt_loc_19=1
+CSET c_gt_loc_2=X
+CSET c_gt_loc_20=2
+CSET c_gt_loc_21=X
+CSET c_gt_loc_22=X
+CSET c_gt_loc_23=X
+CSET c_gt_loc_24=X
+CSET c_gt_loc_25=X
+CSET c_gt_loc_26=X
+CSET c_gt_loc_27=X
+CSET c_gt_loc_28=X
+CSET c_gt_loc_29=X
+CSET c_gt_loc_3=X
+CSET c_gt_loc_30=X
+CSET c_gt_loc_31=X
+CSET c_gt_loc_32=X
+CSET c_gt_loc_33=X
+CSET c_gt_loc_34=X
+CSET c_gt_loc_35=X
+CSET c_gt_loc_36=X
+CSET c_gt_loc_37=X
+CSET c_gt_loc_38=X
+CSET c_gt_loc_39=X
+CSET c_gt_loc_4=X
+CSET c_gt_loc_40=X
+CSET c_gt_loc_41=X
+CSET c_gt_loc_42=X
+CSET c_gt_loc_43=X
+CSET c_gt_loc_44=X
+CSET c_gt_loc_45=X
+CSET c_gt_loc_46=X
+CSET c_gt_loc_47=X
+CSET c_gt_loc_48=X
+CSET c_gt_loc_5=X
+CSET c_gt_loc_6=X
+CSET c_gt_loc_7=X
+CSET c_gt_loc_8=X
+CSET c_gt_loc_9=X
+CSET c_lane_width=4
+CSET c_line_rate=2.5
+CSET c_refclk_frequency=125.000
+CSET c_row_used=None
+CSET c_use_chipscope=false
+CSET component_name=aurora_8b10b_v5_3
+CSET dataflow_config=Duplex
+CSET flow_mode=None
+CSET interface_mode=Streaming
+# END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2011-06-01T09:31:53Z
+# END Extra information
+GENERATE
+# CRC: 41439c74

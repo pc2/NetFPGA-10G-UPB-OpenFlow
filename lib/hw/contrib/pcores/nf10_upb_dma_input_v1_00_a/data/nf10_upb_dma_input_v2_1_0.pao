@@ -1,0 +1,10 @@
+##############################################################################
+## Filename:          /home/lass/NetFPGA-10G-live-clean/lib/hw/contrib/pcores/MyProcessorIPLib/pcores/nf10_upb_dma_input_v1_00_a/data/nf10_upb_dma_input_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Tue May 27 13:31:51 2014 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib nf10_upb_dma_input_v1_00_a dma_input verilog
+lib nf10_upb_dma_input_v1_00_a ../../../nf10_upb_lib/hdl/verilog/nf10_upb_packet_fifo verilog
+lib nf10_upb_dma_input_v1_00_a ../../../nf10_upb_10g_input_v1_00_a/hdl/verilog/width_divider verilog
+lib nf10_upb_dma_input_v1_00_a ../../../nf10_upb_10g_input_v1_00_a/hdl/verilog/width_multiplier verilog

@@ -1,0 +1,75 @@
+NET "/aurora_input/tx_stopped" TIG;
+
+
+################################################################################
+# GTX_DUAL PLACEMENT
+################################################################################
+INST /aurora_input/aurora_module_i/gtx_wrapper_i/GTX_TILE_INST/gtx_dual_i LOC=GTX_DUAL_X0Y5;
+INST /aurora_input/aurora_module_i/gtx_wrapper_i/GTX_TILE_INST_LANE1/gtx_dual_i LOC=GTX_DUAL_X0Y6;
+INST /aurora_input/aurora_module_i/gtx_wrapper_i/GTX_TILE_INST_LANE2/gtx_dual_i LOC=GTX_DUAL_X0Y7;
+INST /aurora_input/aurora_module_i/gtx_wrapper_i/GTX_TILE_INST_LANE3/gtx_dual_i LOC=GTX_DUAL_X0Y8;
+INST /aurora_input/aurora_module_i/gtx_wrapper_i/GTX_TILE_INST_LANE4/gtx_dual_i LOC=GTX_DUAL_X0Y9;
+
+################################ CLOCK CONSTRAINTS ##############################
+
+# User Clock Constraint: Value is selected based on the line rate (6.25 Gbps) and lane width (4-Byte)
+NET "/aurora_input/clock_module_i/clkout0_o" TNM_NET = AURORA_USER_CLK;
+TIMESPEC TS_AURORA_USER_CLK_I = PERIOD "AURORA_USER_CLK" 6.4 ns HIGH 50%;
+
+# Sync Clock Constraint: Value is selected based on the line rate (6.25 Gbps) and lane width (4-Byte)
+NET "/aurora_input/clock_module_i/clkout1_o" TNM_NET = AURORA_SYNC_CLK;
+TIMESPEC TS_AURORA_SYNC_CLK_I = PERIOD "AURORA_SYNC_CLK" 3.2 ns HIGH 50%;
+
+# 125.0MHz GTX Reference clock constraint 
+NET nf10_upb_interconnect_0_GTXD8_P_pin  LOC=F39; 
+NET nf10_upb_interconnect_0_GTXD8_N_pin  LOC=F40;
+NET /aurora_input/GTXD8_left_i PERIOD = 8.0 ns HIGH 50%;
+
+###### No cross clock domain analysis. Domains are not related ############## 
+TIMESPEC "TS_TIG_AURORA_INIT_CLK_USER_CLK" = FROM "CLK20_TNM_NET" TO "AURORA_USER_CLK" TIG; 
+
+
+################################################################################
+# GTX_DUAL PINS
+################################################################################
+NET nf10_upb_interconnect_0_RXP_pin<9> LOC = A41; # Bank 123
+NET nf10_upb_interconnect_0_RXN_pin<9> LOC = A40; # Bank 123
+NET nf10_upb_interconnect_0_RXP_pin<8> LOC = A38; # Bank 123
+NET nf10_upb_interconnect_0_RXN_pin<8> LOC = A39; # Bank 123
+NET nf10_upb_interconnect_0_RXP_pin<7> LOC = H42; # Bank 119
+NET nf10_upb_interconnect_0_RXN_pin<7> LOC = G42; # Bank 119
+NET nf10_upb_interconnect_0_RXP_pin<6> LOC = E42; # Bank 119
+NET nf10_upb_interconnect_0_RXN_pin<6> LOC = F42; # Bank 119
+NET nf10_upb_interconnect_0_RXP_pin<5> LOC = P42; # Bank 115
+NET nf10_upb_interconnect_0_RXN_pin<5> LOC = N42; # Bank 115
+NET nf10_upb_interconnect_0_RXP_pin<4> LOC = L42; # Bank 115
+NET nf10_upb_interconnect_0_RXN_pin<4> LOC = M42; # Bank 115
+NET nf10_upb_interconnect_0_RXP_pin<3> LOC = Y42; # Bank 111
+NET nf10_upb_interconnect_0_RXN_pin<3> LOC = W42; # Bank 111
+NET nf10_upb_interconnect_0_RXP_pin<2> LOC = U42; # Bank 111
+NET nf10_upb_interconnect_0_RXN_pin<2> LOC = V42; # Bank 111
+NET nf10_upb_interconnect_0_RXP_pin<1> LOC = AF42; # Bank 113
+NET nf10_upb_interconnect_0_RXN_pin<1> LOC = AE42; # Bank 113
+NET nf10_upb_interconnect_0_RXP_pin<0> LOC = AC42; # Bank 113
+NET nf10_upb_interconnect_0_RXN_pin<0> LOC = AD42; # Bank 113
+
+NET nf10_upb_interconnect_0_TXP_pin<9> LOC = B42; # Bank 123
+NET nf10_upb_interconnect_0_TXN_pin<9> LOC = B41; # Bank 123
+NET nf10_upb_interconnect_0_TXP_pin<8> LOC = B37; # Bank 123
+NET nf10_upb_interconnect_0_TXN_pin<8> LOC = B38; # Bank 123
+NET nf10_upb_interconnect_0_TXP_pin<7> LOC = J41; # Bank 119
+NET nf10_upb_interconnect_0_TXN_pin<7> LOC = H41; # Bank 119
+NET nf10_upb_interconnect_0_TXP_pin<6> LOC = D41; # Bank 119
+NET nf10_upb_interconnect_0_TXN_pin<6> LOC = E41; # Bank 119
+NET nf10_upb_interconnect_0_TXP_pin<5> LOC = R41; # Bank 115
+NET nf10_upb_interconnect_0_TXN_pin<5> LOC = P41; # Bank 115
+NET nf10_upb_interconnect_0_TXP_pin<4> LOC = K41; # Bank 115
+NET nf10_upb_interconnect_0_TXN_pin<4> LOC = L41; # Bank 115
+NET nf10_upb_interconnect_0_TXP_pin<3> LOC = AA41; # Bank 111
+NET nf10_upb_interconnect_0_TXN_pin<3> LOC = Y41; # Bank 111
+NET nf10_upb_interconnect_0_TXP_pin<2> LOC = T41; # Bank 111
+NET nf10_upb_interconnect_0_TXN_pin<2> LOC = U41; # Bank 111
+NET nf10_upb_interconnect_0_TXP_pin<1> LOC = AG41; # Bank 113
+NET nf10_upb_interconnect_0_TXN_pin<1> LOC = AF41; # Bank 113
+NET nf10_upb_interconnect_0_TXP_pin<0> LOC = AB41; # Bank 113
+NET nf10_upb_interconnect_0_TXN_pin<0> LOC = AC41; # Bank 113

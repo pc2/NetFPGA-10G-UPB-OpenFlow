@@ -1,0 +1,159 @@
+##############################################################
+#
+# Xilinx Core Generator version 14.7
+# Date: Wed Aug 27 08:42:17 2014
+#
+##############################################################
+#
+#  This file contains the customisation parameters for a
+#  Xilinx CORE Generator IP GUI. It is strongly recommended
+#  that you do not manually alter this file as it may cause
+#  unexpected and unsupported behavior.
+#
+##############################################################
+#
+#  Generated from component: xilinx.com:ip:pcie_blk_plus:1.15
+#
+##############################################################
+#
+NEWPROJECT .
+SETPROJECT .
+# BEGIN Project Options
+SET addpads = false
+SET asysymbol = true
+SET busformat = BusFormatAngleBracketNotRipped
+SET createndf = false
+SET designentry = VHDL
+SET device = xc5vtx240t
+SET devicefamily = virtex5
+SET flowvendor = Other
+SET formalverification = false
+SET foundationsym = false
+SET implementationfiletype = Ngc
+SET package = ff1759
+SET removerpms = false
+SET simulationfiles = Behavioral
+SET speedgrade = -2
+SET verilogsim = false
+SET vhdlsim = true
+# END Project Options
+# BEGIN Select
+SELECT Endpoint_Block_Plus_for_PCI_Express xilinx.com:ip:pcie_blk_plus:1.15
+# END Select
+# BEGIN Parameters
+CSET acceptable_l0_latency=No_limit
+CSET acceptable_l1_latency=No_limit
+# "Completion credits" are enabled here because the DMA does not care about the buffer space of the completion buffer on the pcie block
+# Otherwise the PCIe block (and the PC) will freeze on high traffic loads...
+# This is not PCIe conform!
+# An alternate solution is to reduce the PCIe width to X2 (2x 2.5GT/s)...
+CSET advanced_flow_control_credit=Completion_Credits
+CSET aux_max_current=0mA
+CSET bar0_64bit=true
+CSET bar0_enabled=true
+CSET bar0_prefetchable=false
+CSET bar0_scale=Kilobytes
+CSET bar0_size=32
+CSET bar0_type=Memory
+CSET bar0_value=FFFF8004
+CSET bar1_64bit=false
+CSET bar1_enabled=false
+CSET bar1_prefetchable=false
+CSET bar1_scale=Kilobytes
+CSET bar1_size=64
+CSET bar1_type=IO
+CSET bar1_value=FFFFFFFF
+CSET bar2_64bit=true
+CSET bar2_enabled=true
+CSET bar2_prefetchable=false
+CSET bar2_scale=Megabytes
+CSET bar2_size=2
+CSET bar2_type=Memory
+CSET bar2_value=FFE00004
+CSET bar3_64bit=false
+CSET bar3_enabled=false
+CSET bar3_prefetchable=false
+CSET bar3_scale=Kilobytes
+CSET bar3_size=64
+CSET bar3_type=IO
+CSET bar3_value=FFFFFFFF
+CSET bar4_64bit=false
+CSET bar4_enabled=false
+CSET bar4_prefetchable=false
+CSET bar4_scale=Kilobytes
+CSET bar4_size=64
+CSET bar4_type=IO
+CSET bar4_value=00000000
+CSET bar5_enabled=false
+CSET bar5_prefetchable=false
+CSET bar5_scale=Kilobytes
+CSET bar5_size=64
+CSET bar5_type=IO
+CSET bar5_value=00000000
+CSET capabilities_register=0001
+CSET capability_version=1
+CSET cardbus_cis_pointer=00000000
+CSET class_code_base=02
+CSET class_code_interface=00
+CSET class_code_sub=00
+CSET class_code_value=020000
+CSET component_name=endpoint_blk_plus_v1_15
+CSET d0_pme_support=false
+CSET d0_power_consumed=0
+CSET d0_power_consumed_factor=0
+CSET d0_power_dissipated=0
+CSET d0_power_dissipated_factor=0
+CSET d1_pme_support=false
+CSET d1_power_consumed=0
+CSET d1_power_consumed_factor=0
+CSET d1_power_dissipated=0
+CSET d1_power_dissipated_factor=0
+CSET d1_support=false
+CSET d2_pme_support=false
+CSET d2_power_consumed=0
+CSET d2_power_consumed_factor=0
+CSET d2_power_dissipated=0
+CSET d2_power_dissipated_factor=0
+CSET d2_support=false
+CSET d3_power_consumed=0
+CSET d3_power_consumed_factor=0
+CSET d3_power_dissipated=0
+CSET d3_power_dissipated_factor=0
+CSET d3cold_pme_support=false
+CSET d3hot_pme_support=false
+CSET device_capabilities_register=00000FC2
+CSET device_id=dead
+CSET device_port_type=PCI_Express_Endpoint_device
+CSET device_specific_initialization=false
+CSET enable_aspm_l1_support=false
+CSET enable_slot_clock_cfg=true
+CSET expansion_rom_bar=FFF00001
+CSET expansion_rom_enabled=true
+CSET expansion_rom_scale=Megabytes
+CSET expansion_rom_size=1
+CSET force_no_scrambling=false
+CSET gt_debug_ports=false
+CSET interface_freq=125_default
+# PCIe is reduced to x4 as x8 does not give any benefit (DMA frequency is too low and cannot easily be increased to 250MHz)
+CSET lane_width=X4
+CSET link_capabilities_register=0003F441
+CSET max_payload_size=512_bytes
+CSET maximum_link_speed=1
+CSET maximum_link_width=4
+CSET msi=32_vectors
+CSET reference_freq=100
+CSET revision_id=00
+CSET subsystem_id=dead
+CSET subsystem_vendor_id=6f5e
+CSET trim_tlp_digest=true
+CSET tx_buf_diff_ctrl=1100
+CSET tx_diff_boost=true
+CSET tx_diff_ctrl=1000
+CSET tx_pre_emphasis=58
+CSET vendor_id=6f5e
+# END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2013-10-13T18:18:29Z
+# END Extra information
+GENERATE
+# CRC: c95aca4b

@@ -1,0 +1,42 @@
+##############################################################
+#
+#  This file contains the customisation parameters for a
+#  Xilinx CORE Generator IP GUI. It is strongly recommended
+#  that you do not manually alter this file as it may cause
+#  unexpected and unsupported behavior.
+#
+##############################################################
+#
+NEWPROJECT .
+SETPROJECT .
+# BEGIN Project Options
+SET addpads = false
+SET asysymbol = true
+SET busformat = BusFormatAngleBracketNotRipped
+SET createndf = false
+SET designentry = Verilog
+SET device = xc5vtx240t
+SET devicefamily = virtex5
+SET flowvendor = Other
+SET formalverification = false
+SET foundationsym = false
+SET implementationfiletype = Ngc
+SET package = ff1759
+SET removerpms = false
+SET simulationfiles = Structural
+SET speedgrade = -2
+SET verilogsim = true
+SET vhdlsim = false
+# END Project Options
+# BEGIN Select
+SELECT Ten_Gigabit_Ethernet_MAC family Xilinx,_Inc. 10.3
+# END Select
+# BEGIN Parameters
+CSET component_name=xgmac
+CSET management_interface=false
+CSET physical_interface=XGMII
+CSET simplex_split=None
+CSET statistics_gathering=false
+# END Parameters
+GENERATE
+# CRC: 2346bc55

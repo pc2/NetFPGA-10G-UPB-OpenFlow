@@ -1,0 +1,55 @@
+#
+# UPB Dummy Port core
+#
+# Copyright (c) 2014, 2015 Jörg Niklas
+# osjsn@niklasfamily.de
+#
+# This file is part of the NetFPGA 10G UPB OpenFlow Switch project.
+#
+# Project Group "On-the-Fly Networking for Big Data"
+# SFB 901 "On-The-Fly Computing"
+#
+# University of Paderborn
+# Computer Engineering Group
+# Pohlweg 47 - 49
+# 33098 Paderborn
+# Germany
+#
+#
+# This file is free code: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License version 2.1 as
+# published by the Free Software Foundation.
+#
+# This file is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this project. If not, see <http://www.gnu.org/licenses/>.
+#
+
+BEGIN nf10_upb_dummy_port
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = VERILOG
+OPTION IP_GROUP = UPB
+OPTION DESC = NetFPGA-10G dummy port
+
+PARAMETER peripheral_port_width = 32, DT = integer
+PARAMETER external_port_width = 32, DT = integer
+
+PORT peripheral_connection_O = "", DIR = O, VEC = [(peripheral_port_width-1):0]
+PORT peripheral_connection_I = "", DIR = I, VEC = [(peripheral_port_width-1):0]
+PORT peripheral_connection_T = "", DIR = I, VEC = [(peripheral_port_width-1):0]
+PORT peripheral_connection = "", TRI_I = peripheral_connection_O, TRI_O = peripheral_connection_I, TRI_T = peripheral_connection_T, DIR = IO, VEC = [(peripheral_port_width-1):0], THREE_STATE = TRUE, ENABLE = MULTI
+
+PORT external_connection_O = "", DIR = O, VEC = [(external_port_width-1):0]
+PORT external_connection_I = "", DIR = I, VEC = [(external_port_width-1):0]
+PORT external_connection_T = "", DIR = O, VEC = [(external_port_width-1):0]
+PORT external_connection = "", TRI_I = external_connection_I, TRI_O = external_connection_O, TRI_T = external_connection_T, DIR = IO, VEC = [(external_port_width-1):0], THREE_STATE = TRUE, ENABLE = MULTI
+
+END
+

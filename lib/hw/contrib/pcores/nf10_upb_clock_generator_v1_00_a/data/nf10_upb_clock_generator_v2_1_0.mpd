@@ -1,0 +1,64 @@
+#
+# UPB Clock Generator core
+#
+# Copyright (c) 2014, 2015 Jörg Niklas
+# osjsn@niklasfamily.de
+#
+# This file is part of the NetFPGA 10G UPB OpenFlow Switch project.
+#
+# Project Group "On-the-Fly Networking for Big Data"
+# SFB 901 "On-The-Fly Computing"
+#
+# University of Paderborn
+# Computer Engineering Group
+# Pohlweg 47 - 49
+# 33098 Paderborn
+# Germany
+#
+#
+# This file is free code: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License version 2.1 as
+# published by the Free Software Foundation.
+#
+# This file is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this project. If not, see <http://www.gnu.org/licenses/>.
+#
+
+BEGIN nf10_upb_clock_generator
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = VERILOG
+OPTION IP_GROUP = UPB
+OPTION DESC = NetFPGA-10G Clock Generator
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER reduce_clk_to_120mhz = 0, DT = integer, RANGE = (0:1)
+PARAMETER use_dci = 1, DT = integer, RANGE = (0:1)
+PARAMETER wait_for_dci_locked = 1, DT = integer, RANGE = (0:1)
+PARAMETER use_iodelay_control = 1, DT = integer, RANGE = (0:1)
+
+PARAMETER C_CLKIN_FREQ = 100000000, ASSIGNMENT = CONSTANT, DT = INTEGER, TYPE = NON_HDL
+PARAMETER C_CLKOUT_FREQ = 150000000, ASSIGNMENT = CONSTANT, DT = INTEGER, TYPE = NON_HDL
+
+## Ports
+PORT clk100_in = "", DIR = I, SIGIS = CLK, ASSIGNMENT = REQUIRE
+PORT async_reset_in_n = "", DIR = I, ASSIGNMENT = REQUIRE
+
+PORT clk_out = "",     DIR = O, SIGIS = CLK, CLK_INPORT = clk100_in, CLK_FACTOR = 1.0 * (C_CLKOUT_FREQ - reduce_clk_to_120mhz * 30000000) / C_CLKIN_FREQ
+PORT clk2x_out = "",   DIR = O, SIGIS = CLK, CLK_INPORT = clk100_in, CLK_FACTOR = 2.0 * (C_CLKOUT_FREQ - reduce_clk_to_120mhz * 30000000) / C_CLKIN_FREQ
+PORT clk2x90_out = "", DIR = O, SIGIS = CLK, CLK_INPORT = clk100_in, CLK_FACTOR = 2.0 * (C_CLKOUT_FREQ - reduce_clk_to_120mhz * 30000000) / C_CLKIN_FREQ
+PORT clk100_out = "",  DIR = O, SIGIS = CLK, CLK_INPORT = clk100_in, CLK_FACTOR = 1.0
+PORT clk20_out = "", DIR = O, SIGIS = CLK, CLK_INPORT = clk100_in, CLK_FACTOR = 0.2
+
+port reset_out = "", DIR = O, SIGIS = RST
+port reset_n_out = "", DIR = O, SIGIS = RST
+
+END
+

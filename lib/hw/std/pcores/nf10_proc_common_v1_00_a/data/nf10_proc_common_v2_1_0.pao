@@ -1,0 +1,48 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_proc_common_v2_1_0.pao
+#
+#  Library:
+#        hw/std/pcores/nf10_proc_common_v1_00_a
+#
+#  Author:
+#        Muhammad Shahbaz
+#
+#  Description:
+#        Peripheral Analyze Order File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+lib proc_common_v3_00_a all vhdl
+lib axi_lite_ipif_v1_01_a all vhdl
+lib nf10_proc_common_v1_00_a fallthrough_small_fifo_v2 verilog
+lib nf10_proc_common_v1_00_a small_async_fifo verilog
+lib nf10_proc_common_v1_00_a small_fifo_v3 verilog
+lib nf10_proc_common_v1_00_a ipif_regs verilog
+lib nf10_proc_common_v1_00_a ipif_table_regs verilog
+lib nf10_proc_common_v1_00_a axi_lite_ipif_1bar vhdl
+lib nf10_proc_common_v1_00_a axi_lite_ipif_2bars vhdl
+lib nf10_proc_common_v1_00_a axi_lite_ipif_3bars vhdl

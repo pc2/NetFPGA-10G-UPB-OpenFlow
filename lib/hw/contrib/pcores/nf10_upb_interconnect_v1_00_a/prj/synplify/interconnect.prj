@@ -1,0 +1,109 @@
+#--  Synopsys, Inc.
+#--  Version G-2012.09-SP1 
+#--  Project file /home/tloecke/new_git/pgotfnetworking-netfpga/lib/hw/contrib/pcores/nf10_upb_interconnect_v1_00_a/prj/synplify/interconnect.prj
+
+#project files
+add_file -verilog "../../../nf10_upb_lib/hdl/SystemVerilog/axis_conform_check.v"
+add_file -verilog "../../hdl/verilog/nf10/nf10_upb_interconnect.v"
+add_file -verilog "../../hdl/verilog/nf10/wide_fifo.v"
+add_file -verilog "../../hdl/verilog/nf10/nf10_upb_aurora_input.v"
+add_file -verilog "../../hdl/verilog/nf10/crc802_3.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_aurora_lane_4byte.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_channel_err_detect.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_channel_init_sm.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_chbond_count_dec_4byte.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_clock_module.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_err_detect_4byte.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_global_logic.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_idle_and_ver_gen.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_lane_init_sm_4byte.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_reset_logic.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_rx_stream.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_standard_cc_module.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_sym_dec_4byte.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_sym_gen_4byte.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_tile.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_transceiver_wrapper.v"
+add_file -verilog "../../hdl/verilog/aurora/aurora_8b10b_v5_3_tx_stream.v"
+add_file -verilog "../../../nf10_upb_lib/hdl/verilog/flow_ctrl.v"
+add_file -verilog "../../../nf10_upb_lib/hdl/verilog/nf10_upb_packet_fifo.v"
+add_file -verilog "../../hdl/verilog/nf10/encodeInOneCycle.v"
+add_file -constraint "./interconnect.sdc"
+
+#implementation: "nf10_upb_interconnect"
+impl -add nf10_upb_interconnect -type fpga
+
+#
+#implementation attributes
+
+set_option -vlog_std sysv
+set_option -num_critical_paths 5
+set_option -num_startend_points 5
+set_option -project_relative_includes 1
+
+#
+#implementation parameter settings
+set_option -hdl_param -set C_PORT_NUMBER 4
+set_option -hdl_param -set C_AXI_BASE_ADDR 32'hD4000000
+set_option -hdl_param -set C_AXI_HIGH_ADDR 32'hD4ffffff
+
+#device options
+set_option -technology Virtex5
+set_option -part XC5VTX240T
+set_option -package FF1759
+set_option -speed_grade -2
+set_option -part_companion ""
+
+#compilation/mapping options
+set_option -use_fsm_explorer 1
+set_option -top_module "nf10_upb_interconnect"
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+set_option -srs_instrumentation 1
+
+# xilinx_options
+set_option -RWCheckOnRam 1
+
+# Xilinx Virtex2
+set_option -run_prop_extract 1
+set_option -maxfan 10000
+set_option -disable_io_insertion 1
+set_option -pipe 1
+set_option -update_models_cp 0
+set_option -retiming 1
+set_option -no_sequential_opt 0
+set_option -fix_gated_and_generated_clocks 1
+
+# Xilinx Virtex5
+set_option -enable_prepacking 1
+
+# timing_analyst_options
+set_option -reporting_filter {-to {} }
+set_option -reporting_output_srm 0
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 0
+set_option -resource_sharing 1
+set_option -multi_file_compilation_unit 1
+
+#timing report file option
+set_option -reporting_filename "./interconnect.ta"
+
+#VIF options
+set_option -write_vif 0
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 0
+
+#set result format/file last
+project -result_file "./nf10_upb_interconnect/nf10_upb_interconnect.edf"
+
+#design plan options
+impl -active "nf10_upb_interconnect"

@@ -1,0 +1,124 @@
+BEGIN nf10_upb_ofswitch
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = MIXED
+#OPTION USAGE_LEVEL = BASE_USER
+OPTION RUN_NGCBUILD = TRUE
+OPTION STYLE = BLACKBOX
+OPTION IP_GROUP = UPB
+OPTION DESC = NetFPGA-10G Layer 2 OpenFlow Switch Implementation
+
+
+
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+
+BUS_INTERFACE BUS = S_AXI_TCAM, BUS_STD = AXI, BUS_TYPE = SLAVE
+BUS_INTERFACE BUS = S_AXI_CAM, BUS_STD = AXI, BUS_TYPE = SLAVE
+BUS_INTERFACE BUS = S_AXI_STATS, BUS_STD = AXI, BUS_TYPE = SLAVE
+
+PARAMETER C_S_AXI_TCAM_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI_TCAM
+PARAMETER C_S_AXI_CAM_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI_CAM
+PARAMETER C_S_AXI_STATS_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI_STATS
+PARAMETER C_AXI_BASE_ADDR_TCAM = 0xFFFFFFFF, DT = std_logic_vector, PAIR = C_AXI_HIGH_ADDR_TCAM, ADDRESS = BASE, BUS = S_AXI_TCAM, MIN_SIZE = 0x10000000, ASSIGNMENT = REQUIRE
+PARAMETER C_AXI_HIGH_ADDR_TCAM = 0x00000000, DT = std_logic_vector, PAIR = C_AXI_BASE_ADDR_TCAM, ADDRESS = HIGH, BUS = S_AXI_TCAM, ASSIGNMENT = REQUIRE
+PARAMETER C_AXI_BASE_ADDR_CAM = 0xFFFFFFFF, DT = std_logic_vector, PAIR = C_AXI_HIGH_ADDR_CAM, ADDRESS = BASE, BUS = S_AXI_CAM, MIN_SIZE = 0x10000000, ASSIGNMENT = REQUIRE
+PARAMETER C_AXI_HIGH_ADDR_CAM = 0x00000000, DT = std_logic_vector, PAIR = C_AXI_BASE_ADDR_CAM, ADDRESS = HIGH, BUS = S_AXI_CAM, ASSIGNMENT = REQUIRE
+PARAMETER C_AXI_BASE_ADDR_STATS = 0xFFFFFFFF, DT = std_logic_vector, PAIR = C_AXI_HIGH_ADDR_STATS, ADDRESS = BASE, BUS = S_AXI_STATS, MIN_SIZE = 0x10000000, ASSIGNMENT = REQUIRE
+PARAMETER C_AXI_HIGH_ADDR_STATS = 0x00000000, DT = std_logic_vector, PAIR = C_AXI_BASE_ADDR_STATS, ADDRESS = HIGH, BUS = S_AXI_STATS, ASSIGNMENT = REQUIRE
+
+PARAMETER C_DMA_FIRST_EXTERNAL_PORT = 0, DT = integer, ASSIGNMENT = REQUIRE
+PARAMETER C_DMA_LAST_EXTERNAL_PORT = 0, DT = integer, ASSIGNMENT = REQUIRE
+PARAMETER C_DMA_PORT = 0, DT = integer, ASSIGNMENT = REQUIRE
+PARAMETER C_BRIDGED_ETH_A_VPORT = 0, DT = integer, ASSIGNMENT = REQUIRE
+PARAMETER C_BRIDGED_ETH_B_VPORT = 0, DT = integer, ASSIGNMENT = REQUIRE
+PARAMETER TCAM_DEPTH = 0, DT = integer, ASSIGNMENT = REQUIRE
+PARAMETER CAM_DEPTH = 0, DT = integer, ASSIGNMENT = REQUIRE
+
+## Ports
+#PORT axi_aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS:S_AXIS
+PORT clk = "", DIR = I, ASSIGNMENT = REQUIRE
+PORT reset = "", DIR = I, ASSIGNMENT = REQUIRE
+
+
+
+
+
+PORT m_axis_tdata = TDATA, DIR = O, VEC = [255:0], BUS = M_AXIS
+PORT m_axis_tkeep = TKEEP, DIR = O, VEC = [31:0], BUS = M_AXIS
+PORT m_axis_tuser_in_port = TUSER_IN_PORT, DIR = O, VEC = [2:0], BUS = M_AXIS
+PORT m_axis_tuser_in_vport = TUSER_IN_VPORT, DIR = O, VEC = [2:0], BUS = M_AXIS
+PORT m_axis_tuser_out_port = TUSER_OUT_PORT, DIR = O, VEC = [7:0], BUS = M_AXIS
+PORT m_axis_tuser_out_vport = TUSER_OUT_VPORT, DIR = O, VEC = [7:0], BUS = M_AXIS
+PORT m_axis_tuser_packet_length = TUSER_PACKET_LENGTH, DIR = O, VEC = [13:0], BUS = M_AXIS
+PORT m_axis_tvalid = TVALID, DIR = O, BUS = M_AXIS
+PORT m_axis_tready = TREADY, DIR = I, BUS = M_AXIS
+PORT m_axis_tlast = TLAST, DIR = O, BUS = M_AXIS
+
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [255:0], BUS = S_AXIS
+PORT s_axis_tkeep = TKEEP, DIR = I, VEC = [31:0], BUS = S_AXIS
+PORT s_axis_tuser_in_port = TUSER_IN_PORT, DIR = I, VEC = [2:0], BUS = S_AXIS
+PORT s_axis_tuser_in_vport = TUSER_IN_VPORT, DIR = I, VEC = [2:0], BUS = S_AXIS
+PORT s_axis_tuser_out_port = TUSER_OUT_PORT, DIR = I, VEC = [7:0], BUS = S_AXIS
+PORT s_axis_tuser_out_vport = TUSER_OUT_VPORT, DIR = I, VEC = [7:0], BUS = S_AXIS
+PORT s_axis_tuser_packet_length = TUSER_PACKET_LENGTH, DIR = I, VEC = [13:0], BUS = S_AXIS
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+
+PORT s_axi_tcam_aclk = "", DIR = I, SIGIS = CLK, BUS = S_AXI_TCAM
+PORT s_axi_tcam_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI_TCAM
+PORT s_axi_tcam_awaddr = AWADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_TCAM
+PORT s_axi_tcam_awvalid = AWVALID, DIR = I, BUS = S_AXI_TCAM
+PORT s_axi_tcam_wdata = WDATA, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_TCAM
+PORT s_axi_tcam_wstrb = WSTRB, DIR = I, VEC = [3:0], ENDIAN = LITTLE, BUS = S_AXI_TCAM
+PORT s_axi_tcam_wvalid = WVALID, DIR = I, BUS = S_AXI_TCAM
+PORT s_axi_tcam_bready = BREADY, DIR = I, BUS = S_AXI_TCAM
+PORT s_axi_tcam_araddr = ARADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_TCAM
+PORT s_axi_tcam_arvalid = ARVALID, DIR = I, BUS = S_AXI_TCAM
+PORT s_axi_tcam_rready = RREADY, DIR = I, BUS = S_AXI_TCAM
+PORT s_axi_tcam_arready = ARREADY, DIR = O, BUS = S_AXI_TCAM
+PORT s_axi_tcam_rdata = RDATA, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_TCAM
+PORT s_axi_tcam_rresp = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI_TCAM
+PORT s_axi_tcam_rvalid = RVALID, DIR = O, BUS = S_AXI_TCAM
+PORT s_axi_tcam_wready = WREADY, DIR = O, BUS = S_AXI_TCAM
+PORT s_axi_tcam_bresp = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI_TCAM
+PORT s_axi_tcam_bvalid = BVALID, DIR = O, BUS = S_AXI_TCAM
+PORT s_axi_tcam_awready = AWREADY, DIR = O, BUS = S_AXI_TCAM
+
+PORT s_axi_cam_aclk = "", DIR = I, SIGIS = CLK, BUS = S_AXI_CAM
+PORT s_axi_cam_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI_CAM
+PORT s_axi_cam_awaddr = AWADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_CAM
+PORT s_axi_cam_awvalid = AWVALID, DIR = I, BUS = S_AXI_CAM
+PORT s_axi_cam_wdata = WDATA, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_CAM
+PORT s_axi_cam_wstrb = WSTRB, DIR = I, VEC = [3:0], ENDIAN = LITTLE, BUS = S_AXI_CAM
+PORT s_axi_cam_wvalid = WVALID, DIR = I, BUS = S_AXI_CAM
+PORT s_axi_cam_bready = BREADY, DIR = I, BUS = S_AXI_CAM
+PORT s_axi_cam_araddr = ARADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_CAM
+PORT s_axi_cam_arvalid = ARVALID, DIR = I, BUS = S_AXI_CAM
+PORT s_axi_cam_rready = RREADY, DIR = I, BUS = S_AXI_CAM
+PORT s_axi_cam_arready = ARREADY, DIR = O, BUS = S_AXI_CAM
+PORT s_axi_cam_rdata = RDATA, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_CAM
+PORT s_axi_cam_rresp = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI_CAM
+PORT s_axi_cam_rvalid = RVALID, DIR = O, BUS = S_AXI_CAM
+PORT s_axi_cam_wready = WREADY, DIR = O, BUS = S_AXI_CAM
+PORT s_axi_cam_bresp = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI_CAM
+PORT s_axi_cam_bvalid = BVALID, DIR = O, BUS = S_AXI_CAM
+PORT s_axi_cam_awready = AWREADY, DIR = O, BUS = S_AXI_CAM
+
+PORT s_axi_stats_aclk = "", DIR = I, SIGIS = CLK, BUS = S_AXI_STATS
+PORT s_axi_stats_aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI_STATS
+PORT s_axi_stats_araddr = ARADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_STATS
+PORT s_axi_stats_arvalid = ARVALID, DIR = I, BUS = S_AXI_STATS
+PORT s_axi_stats_rready = RREADY, DIR = I, BUS = S_AXI_STATS
+PORT s_axi_stats_arready = ARREADY, DIR = O, BUS = S_AXI_STATS
+PORT s_axi_stats_rdata = RDATA, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI_STATS
+PORT s_axi_stats_rresp = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI_STATS
+PORT s_axi_stats_rvalid = RVALID, DIR = O, BUS = S_AXI_STATS
+
+END

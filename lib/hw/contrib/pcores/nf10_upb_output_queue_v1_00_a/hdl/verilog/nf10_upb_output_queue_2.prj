@@ -1,0 +1,83 @@
+#--  Synopsys, Inc.
+#--  Version G-2012.09-SP1 
+#--  Project file /home/jsn/pgotfnetworking-netfpga/lib/hw/contrib/pcores/nf10_upb_output_queue_v1_00_a/hdl/verilog/nf10_upb_output_queue.prj
+
+#project files
+add_file -verilog "../../../nf10_upb_lib/hdl/SystemVerilog/axis_if.v"
+add_file -verilog "../../../nf10_upb_lib/hdl/SystemVerilog/qdr2_sram.v"
+add_file -verilog "../../../nf10_upb_lib/hdl/SystemVerilog/secded.v"
+add_file -verilog "../../../nf10_upb_lib/hdl/SystemVerilog/simple_packet_fifo.v"
+add_file -verilog "../../../nf10_upb_lib/hdl/SystemVerilog/tkeep_coder.v"
+add_file -verilog "./output_queue.v"
+add_file -verilog "./nf10_upb_output_queue.v"
+add_file -constraint "./nf10_upb_output_queue_2.sdc"
+
+
+#implementation: "netlist"
+impl -add netlist -type fpga
+
+#
+#implementation attributes
+
+set_option -vlog_std sysv
+set_option -num_critical_paths 5
+set_option -num_startend_points 5
+set_option -project_relative_includes 1
+
+#
+#implementation parameter settings
+set_option -hdl_param -set output_ports 2
+set_option -hdl_param -set store_and_forward_ports 2b'11
+
+#device options
+set_option -technology Virtex5
+set_option -part XC5VTX240T
+set_option -package FF1759
+set_option -speed_grade -2
+set_option -part_companion ""
+
+#compilation/mapping options
+set_option -use_fsm_explorer 1
+set_option -top_module "nf10_upb_output_queue"
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+set_option -srs_instrumentation 1
+
+# xilinx_options
+set_option -RWCheckOnRam 1
+
+# Xilinx Virtex2
+set_option -run_prop_extract 1
+set_option -maxfan 10000
+set_option -disable_io_insertion 1
+set_option -pipe 1
+set_option -update_models_cp 0
+set_option -retiming 1
+set_option -no_sequential_opt 0
+set_option -fix_gated_and_generated_clocks 1
+
+# Xilinx Virtex5
+set_option -enable_prepacking 1
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 0
+set_option -resource_sharing 1
+set_option -multi_file_compilation_unit 1
+
+#VIF options
+set_option -write_vif 0
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 0
+
+#set result format/file last
+project -result_file "../../netlist/2_ports/nf10_upb_output_queue.edf"
+
+#design plan options
+impl -active "netlist"

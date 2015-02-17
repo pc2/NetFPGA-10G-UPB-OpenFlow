@@ -1,0 +1,729 @@
+
+ PARAMETER VERSION = 2.1.0
+
+
+ PORT nf10_upb_10g_interface_0_xaui_tx_l0_p_pin = nf10_upb_10g_interface_0_xaui_tx_l0_p, DIR = O
+ PORT nf10_upb_10g_interface_0_xaui_tx_l0_n_pin = nf10_upb_10g_interface_0_xaui_tx_l0_n, DIR = O
+ PORT nf10_upb_10g_interface_0_xaui_tx_l1_n_pin = nf10_upb_10g_interface_0_xaui_tx_l1_n, DIR = O
+ PORT nf10_upb_10g_interface_0_xaui_tx_l2_p_pin = nf10_upb_10g_interface_0_xaui_tx_l2_p, DIR = O
+ PORT nf10_upb_10g_interface_0_xaui_tx_l3_n_pin = nf10_upb_10g_interface_0_xaui_tx_l3_n, DIR = O
+ PORT nf10_upb_10g_interface_0_xaui_rx_l2_p_pin = nf10_upb_10g_interface_0_xaui_rx_l2_p, DIR = I
+ PORT nf10_upb_10g_interface_0_xaui_rx_l2_n_pin = nf10_upb_10g_interface_0_xaui_rx_l2_n, DIR = I
+ PORT nf10_upb_10g_interface_0_xaui_rx_l3_p_pin = nf10_upb_10g_interface_0_xaui_rx_l3_p, DIR = I
+ PORT nf10_upb_10g_interface_0_xaui_rx_l3_n_pin = nf10_upb_10g_interface_0_xaui_rx_l3_n, DIR = I
+ PORT nf10_upb_10g_interface_0_xaui_rx_l0_p_pin = nf10_upb_10g_interface_0_xaui_rx_l0_p, DIR = I
+ PORT nf10_upb_10g_interface_0_xaui_rx_l0_n_pin = nf10_upb_10g_interface_0_xaui_rx_l0_n, DIR = I
+ PORT nf10_upb_10g_interface_0_xaui_rx_l1_n_pin = nf10_upb_10g_interface_0_xaui_rx_l1_n, DIR = I
+ PORT nf10_upb_10g_interface_0_xaui_tx_l3_p_pin = nf10_upb_10g_interface_0_xaui_tx_l3_p, DIR = O
+ PORT nf10_upb_10g_interface_0_xaui_tx_l2_n_pin = nf10_upb_10g_interface_0_xaui_tx_l2_n, DIR = O
+ PORT nf10_upb_10g_interface_0_xaui_tx_l1_p_pin = nf10_upb_10g_interface_0_xaui_tx_l1_p, DIR = O
+ PORT nf10_upb_10g_interface_1_xaui_tx_l2_n_pin = nf10_upb_10g_interface_1_xaui_tx_l2_n, DIR = O
+ PORT nf10_upb_10g_interface_1_xaui_tx_l1_p_pin = nf10_upb_10g_interface_1_xaui_tx_l1_p, DIR = O
+ PORT nf10_upb_10g_interface_1_xaui_tx_l0_n_pin = nf10_upb_10g_interface_1_xaui_tx_l0_n, DIR = O
+ PORT nf10_upb_10g_interface_1_xaui_tx_l1_n_pin = nf10_upb_10g_interface_1_xaui_tx_l1_n, DIR = O
+ PORT nf10_upb_10g_interface_1_xaui_tx_l2_p_pin = nf10_upb_10g_interface_1_xaui_tx_l2_p, DIR = O
+ PORT nf10_upb_10g_interface_1_xaui_tx_l3_n_pin = nf10_upb_10g_interface_1_xaui_tx_l3_n, DIR = O
+ PORT nf10_upb_10g_interface_1_xaui_rx_l0_p_pin = nf10_upb_10g_interface_1_xaui_rx_l0_p, DIR = I
+ PORT nf10_upb_10g_interface_1_xaui_rx_l0_n_pin = nf10_upb_10g_interface_1_xaui_rx_l0_n, DIR = I
+ PORT nf10_upb_10g_interface_1_xaui_rx_l1_p_pin = nf10_upb_10g_interface_1_xaui_rx_l1_p, DIR = I
+ PORT nf10_upb_10g_interface_1_xaui_rx_l1_n_pin = nf10_upb_10g_interface_1_xaui_rx_l1_n, DIR = I
+ PORT nf10_upb_10g_interface_1_xaui_rx_l2_p_pin = nf10_upb_10g_interface_1_xaui_rx_l2_p, DIR = I
+ PORT nf10_upb_10g_interface_1_xaui_rx_l2_n_pin = nf10_upb_10g_interface_1_xaui_rx_l2_n, DIR = I
+ PORT nf10_upb_10g_interface_1_xaui_rx_l3_p_pin = nf10_upb_10g_interface_1_xaui_rx_l3_p, DIR = I
+ PORT nf10_upb_10g_interface_1_xaui_rx_l3_n_pin = nf10_upb_10g_interface_1_xaui_rx_l3_n, DIR = I
+ PORT nf10_upb_10g_interface_1_xaui_tx_l3_p_pin = nf10_upb_10g_interface_1_xaui_tx_l3_p, DIR = O
+ PORT nf10_upb_10g_interface_1_xaui_tx_l0_p_pin = nf10_upb_10g_interface_1_xaui_tx_l0_p, DIR = O
+ PORT refclk_A_p = net_refclk_A_p, DIR = I
+ PORT refclk_A_n = net_refclk_A_n, DIR = I
+ PORT nf10_upb_10g_interface_0_xaui_rx_l1_p_pin = net_nf10_upb_10g_interface_0_xaui_rx_l1_p_pin, DIR = I
+ PORT clk100_in = clk100_in, DIR = I, SIGIS = CLK, CLK_FREQ = 100000000
+ PORT reset_n_in = reset_n_in, DIR = I, SIGIS = RST
+ PORT refclk_B_p = net_refclk_B_p, DIR = I
+ PORT refclk_B_n = net_refclk_B_n, DIR = I
+ PORT refclk_C_p = net_refclk_C_p, DIR = I
+ PORT refclk_C_n = net_refclk_C_n, DIR = I
+ PORT refclk_D_p = net_refclk_D_p, DIR = I
+ PORT refclk_D_n = net_refclk_D_n, DIR = I
+ PORT qdr_a_c = qdr_a_c, DIR = O
+ PORT qdr_a_bw_n = qdr_a_bw_n, DIR = O, VEC = [3:0]
+ PORT qdr_a_k_n = qdr_a_k_n, DIR = O
+ PORT qdr_a_k = qdr_a_k, DIR = O
+ PORT qdr_a_cq = qdr_a_cq, DIR = I
+ PORT qdr_a_cq_n = qdr_a_cq_n, DIR = I
+ PORT qdr_a_sa = qdr_a_sa, DIR = O, VEC = [18:0]
+ PORT qdr_a_q = qdr_a_q, DIR = I, VEC = [35:0]
+ PORT qdr_b_c = qdr_b_c, DIR = O
+ PORT qdr_a_r_n = qdr_a_r_n, DIR = O
+ PORT qdr_b_k_n = qdr_b_k_n, DIR = O
+ PORT qdr_a_w_n = qdr_a_w_n, DIR = O
+ PORT qdr_b_k = qdr_b_k, DIR = O
+ PORT qdr_a_d = qdr_a_d, DIR = O, VEC = [35:0]
+ PORT qdr_a_dll_off_n = qdr_a_dll_off_n, DIR = O
+ PORT qdr_b_c_n = qdr_b_c_n, DIR = O
+ PORT qdr_b_cq = qdr_b_cq, DIR = I
+ PORT qdr_b_cq_n = qdr_b_cq_n, DIR = I
+ PORT qdr_b_sa = qdr_b_sa, DIR = O, VEC = [18:0]
+ PORT qdr_b_bw_n = qdr_b_bw_n, DIR = O, VEC = [3:0]
+ PORT qdr_b_q = qdr_b_q, DIR = I, VEC = [35:0]
+ PORT qdr_b_r_n = qdr_b_r_n, DIR = O
+ PORT qdr_b_w_n = qdr_b_w_n, DIR = O
+ PORT qdr_b_d = qdr_b_d, DIR = O, VEC = [35:0]
+ PORT qdr_b_dll_off_n = qdr_b_dll_off_n, DIR = O
+ PORT qdr_a_c_n = qdr_a_c_n, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_tx_l0_p_pin = nf10_upb_10g_interface_2_xaui_tx_l0_p, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_tx_l0_n_pin = nf10_upb_10g_interface_2_xaui_tx_l0_n, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_tx_l1_p_pin = nf10_upb_10g_interface_2_xaui_tx_l1_p, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_tx_l1_n_pin = nf10_upb_10g_interface_2_xaui_tx_l1_n, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_tx_l2_p_pin = nf10_upb_10g_interface_2_xaui_tx_l2_p, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_tx_l2_n_pin = nf10_upb_10g_interface_2_xaui_tx_l2_n, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_tx_l3_p_pin = nf10_upb_10g_interface_2_xaui_tx_l3_p, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_tx_l3_n_pin = nf10_upb_10g_interface_2_xaui_tx_l3_n, DIR = O
+ PORT nf10_upb_10g_interface_2_xaui_rx_l0_p_pin = net_nf10_upb_10g_interface_2_xaui_rx_l0_p_pin, DIR = I
+ PORT nf10_upb_10g_interface_2_xaui_rx_l0_n_pin = net_nf10_upb_10g_interface_2_xaui_rx_l0_n_pin, DIR = I
+ PORT nf10_upb_10g_interface_2_xaui_rx_l1_p_pin = net_nf10_upb_10g_interface_2_xaui_rx_l1_p_pin, DIR = I
+ PORT nf10_upb_10g_interface_2_xaui_rx_l1_n_pin = net_nf10_upb_10g_interface_2_xaui_rx_l1_n_pin, DIR = I
+ PORT nf10_upb_10g_interface_2_xaui_rx_l2_p_pin = net_nf10_upb_10g_interface_2_xaui_rx_l2_p_pin, DIR = I
+ PORT nf10_upb_10g_interface_2_xaui_rx_l2_n_pin = net_nf10_upb_10g_interface_2_xaui_rx_l2_n_pin, DIR = I
+ PORT nf10_upb_10g_interface_2_xaui_rx_l3_p_pin = net_nf10_upb_10g_interface_2_xaui_rx_l3_p_pin, DIR = I
+ PORT nf10_upb_10g_interface_2_xaui_rx_l3_n_pin = net_nf10_upb_10g_interface_2_xaui_rx_l3_n_pin, DIR = I
+ PORT nf10_upb_10g_interface_3_xaui_tx_l0_p_pin = nf10_upb_10g_interface_3_xaui_tx_l0_p, DIR = O
+ PORT nf10_upb_10g_interface_3_xaui_tx_l0_n_pin = nf10_upb_10g_interface_3_xaui_tx_l0_n, DIR = O
+ PORT nf10_upb_10g_interface_3_xaui_tx_l1_p_pin = nf10_upb_10g_interface_3_xaui_tx_l1_p, DIR = O
+ PORT nf10_upb_10g_interface_3_xaui_tx_l1_n_pin = nf10_upb_10g_interface_3_xaui_tx_l1_n, DIR = O
+ PORT nf10_upb_10g_interface_3_xaui_tx_l2_p_pin = nf10_upb_10g_interface_3_xaui_tx_l2_p, DIR = O
+ PORT nf10_upb_10g_interface_3_xaui_tx_l2_n_pin = nf10_upb_10g_interface_3_xaui_tx_l2_n, DIR = O
+ PORT nf10_upb_10g_interface_3_xaui_tx_l3_p_pin = nf10_upb_10g_interface_3_xaui_tx_l3_p, DIR = O
+ PORT nf10_upb_10g_interface_3_xaui_tx_l3_n_pin = nf10_upb_10g_interface_3_xaui_tx_l3_n, DIR = O
+ PORT nf10_upb_10g_interface_3_xaui_rx_l0_p_pin = net_nf10_upb_10g_interface_3_xaui_rx_l0_p_pin, DIR = I
+ PORT nf10_upb_10g_interface_3_xaui_rx_l0_n_pin = net_nf10_upb_10g_interface_3_xaui_rx_l0_n_pin, DIR = I
+ PORT nf10_upb_10g_interface_3_xaui_rx_l1_p_pin = net_nf10_upb_10g_interface_3_xaui_rx_l1_p_pin, DIR = I
+ PORT nf10_upb_10g_interface_3_xaui_rx_l1_n_pin = net_nf10_upb_10g_interface_3_xaui_rx_l1_n_pin, DIR = I
+ PORT nf10_upb_10g_interface_3_xaui_rx_l2_n_pin = net_nf10_upb_10g_interface_3_xaui_rx_l2_n_pin, DIR = I
+ PORT nf10_upb_10g_interface_3_xaui_rx_l2_p_pin = net_nf10_upb_10g_interface_3_xaui_rx_l2_p_pin, DIR = I
+ PORT nf10_upb_10g_interface_3_xaui_rx_l3_p_pin = net_nf10_upb_10g_interface_3_xaui_rx_l3_p_pin, DIR = I
+ PORT nf10_upb_10g_interface_3_xaui_rx_l3_n_pin = net_nf10_upb_10g_interface_3_xaui_rx_l3_n_pin, DIR = I
+ PORT pcie_clk_p = pcie_top_0_pcie_clk_p, DIR = I
+ PORT pcie_top_0_pci_exp_0_txp_pin = pcie_top_0_pci_exp_0_txp, DIR = O
+ PORT pcie_clk_n = pcie_top_0_pcie_clk_n, DIR = I
+ PORT pcie_top_0_pci_exp_0_rxp_pin = pcie_top_0_pci_exp_0_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_0_rxn_pin = pcie_top_0_pci_exp_0_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_1_txp_pin = pcie_top_0_pci_exp_1_txp, DIR = O
+ PORT pcie_top_0_pci_exp_1_txn_pin = pcie_top_0_pci_exp_1_txn, DIR = O
+ PORT pcie_top_0_pci_exp_1_rxp_pin = pcie_top_0_pci_exp_1_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_1_rxn_pin = pcie_top_0_pci_exp_1_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_4_txp_pin = pcie_top_0_pci_exp_4_txp, DIR = O
+ PORT pcie_top_0_pci_exp_2_txp_pin = pcie_top_0_pci_exp_2_txp, DIR = O
+ PORT pcie_top_0_pci_exp_2_txn_pin = pcie_top_0_pci_exp_2_txn, DIR = O
+ PORT pcie_top_0_pci_exp_2_rxp_pin = pcie_top_0_pci_exp_2_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_2_rxn_pin = pcie_top_0_pci_exp_2_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_3_txp_pin = pcie_top_0_pci_exp_3_txp, DIR = O
+ PORT pcie_top_0_pci_exp_3_txn_pin = pcie_top_0_pci_exp_3_txn, DIR = O
+ PORT pcie_top_0_pci_exp_3_rxp_pin = pcie_top_0_pci_exp_3_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_3_rxn_pin = pcie_top_0_pci_exp_3_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_4_txn_pin = pcie_top_0_pci_exp_4_txn, DIR = O
+ PORT pcie_top_0_pci_exp_4_rxp_pin = pcie_top_0_pci_exp_4_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_4_rxn_pin = pcie_top_0_pci_exp_4_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_5_txp_pin = pcie_top_0_pci_exp_5_txp, DIR = O
+ PORT pcie_top_0_pci_exp_5_txn_pin = pcie_top_0_pci_exp_5_txn, DIR = O
+ PORT pcie_top_0_pci_exp_5_rxp_pin = pcie_top_0_pci_exp_5_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_5_rxn_pin = pcie_top_0_pci_exp_5_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_6_txp_pin = pcie_top_0_pci_exp_6_txp, DIR = O
+ PORT pcie_top_0_pci_exp_6_txn_pin = pcie_top_0_pci_exp_6_txn, DIR = O
+ PORT pcie_top_0_pci_exp_6_rxp_pin = pcie_top_0_pci_exp_6_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_6_rxn_pin = pcie_top_0_pci_exp_6_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_7_txn_pin = pcie_top_0_pci_exp_7_txn, DIR = O
+ PORT pcie_top_0_pci_exp_7_txp_pin = pcie_top_0_pci_exp_7_txp, DIR = O
+ PORT pcie_top_0_pci_exp_7_rxn_pin = pcie_top_0_pci_exp_7_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_7_rxp_pin = pcie_top_0_pci_exp_7_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_0_txn_pin = pcie_top_0_pci_exp_0_txn, DIR = O
+ PORT MDC = nf10_mdio_0_PHY_MDC, DIR = O
+ PORT MDIO = nf10_mdio_0_PHY_MDIO, DIR = IO
+ PORT PHY_RST_N = nf10_mdio_0_PHY_rst_n, DIR = O, RST_POLARITY = 1
+ PORT axi_cfg_fpga_0_GPIO_IO_pin = axi_cfg_fpga_0_GPIO_IO, DIR = IO, VEC = [1:0]
+ PORT axi_emc_0_Mem_A_pin = axi_emc_0_Mem_A, DIR = O, VEC = [23:0]
+ PORT axi_emc_0_Mem_CEN_pin = axi_emc_0_Mem_CEN, DIR = O, VEC = [0:0]
+ PORT axi_emc_0_Mem_OEN_pin = axi_emc_0_Mem_OEN, DIR = O, VEC = [0:0]
+ PORT axi_emc_0_Mem_WEN_pin = axi_emc_0_Mem_WEN, DIR = O
+ PORT axi_emc_0_Mem_DQ_pin = axi_emc_0_Mem_DQ, DIR = IO, VEC = [7:0]
+ PORT nf10_upb_interconnect_0_RXP_pin = net_nf10_upb_interconnect_0_RXP_pin, DIR = I, VEC = [0:9]
+ PORT nf10_upb_interconnect_0_RXN_pin = net_nf10_upb_interconnect_0_RXN_pin, DIR = I, VEC = [0:9]
+ PORT nf10_upb_interconnect_0_TXP_pin = nf10_upb_interconnect_0_TXP, DIR = O, VEC = [0:9]
+ PORT nf10_upb_interconnect_0_TXN_pin = nf10_upb_interconnect_0_TXN, DIR = O, VEC = [0:9]
+ PORT nf10_upb_interconnect_0_GTXD8_P_pin = net_nf10_upb_interconnect_0_GTXD8_P_pin, DIR = I
+ PORT nf10_upb_interconnect_0_GTXD8_N_pin = net_nf10_upb_interconnect_0_GTXD8_N_pin, DIR = I
+# dummy pin for DCI
+ PORT dci_masterbank_dummy_pin = dci_masterbank_dummy_pin, DIR = I, SIGIS = NONE, VEC = [2:0]
+
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi_interconnect_0
+ PARAMETER HW_VER = 1.05.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
+ PORT INTERCONNECT_ARESETN = reset_n
+ PORT interconnect_aclk = clk
+END
+
+BEGIN nf10_upb_10g_input
+ PARAMETER INSTANCE = nf10_upb_10g_input_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_AXI_BASE_ADDR = 0xD0000000
+ PARAMETER C_AXI_HIGH_ADDR = 0xD0FFFFFF
+ BUS_INTERFACE M_AXIS_MAC = nf10_upb_10g_input_0_M_AXIS_MAC
+ BUS_INTERFACE S_AXIS_MAC = nf10_upb_10g_interface_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_upb_10g_input_0_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_upb_output_queue_0_M_AXIS_0
+ BUS_INTERFACE S_AXI_STATS = axi_interconnect_0
+ PORT axi_aclk = clk
+ PORT clk156 = nf10_upb_10g_interface_0_clk156
+ PORT axi_resetn = reset_n
+ PORT pause_req = nf10_upb_10g_input_0_pause_req
+ PORT pause_val = nf10_upb_10g_input_0_pause_val
+ PORT s_axi_aclk = clk
+END
+
+BEGIN nf10_upb_10g_interface
+ PARAMETER INSTANCE = nf10_upb_10g_interface_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_XAUI_REVERSE = 1
+ PARAMETER C_CHIPSCOPE_INSTANCE = 0
+ BUS_INTERFACE S_AXIS = nf10_upb_10g_input_0_M_AXIS_MAC
+ BUS_INTERFACE M_AXIS = nf10_upb_10g_interface_0_M_AXIS
+ PORT xaui_tx_l0_p = nf10_upb_10g_interface_0_xaui_tx_l0_p
+ PORT xaui_tx_l0_n = nf10_upb_10g_interface_0_xaui_tx_l0_n
+ PORT xaui_tx_l1_n = nf10_upb_10g_interface_0_xaui_tx_l1_n
+ PORT xaui_tx_l2_p = nf10_upb_10g_interface_0_xaui_tx_l2_p
+ PORT xaui_tx_l3_n = nf10_upb_10g_interface_0_xaui_tx_l3_n
+ PORT xaui_rx_l2_p = nf10_upb_10g_interface_0_xaui_rx_l2_p
+ PORT xaui_rx_l2_n = nf10_upb_10g_interface_0_xaui_rx_l2_n
+ PORT xaui_rx_l3_p = nf10_upb_10g_interface_0_xaui_rx_l3_p
+ PORT xaui_rx_l3_n = nf10_upb_10g_interface_0_xaui_rx_l3_n
+ PORT xaui_rx_l0_p = nf10_upb_10g_interface_0_xaui_rx_l0_p
+ PORT xaui_rx_l1_n = nf10_upb_10g_interface_0_xaui_rx_l1_n
+ PORT xaui_tx_l3_p = nf10_upb_10g_interface_0_xaui_tx_l3_p
+ PORT xaui_tx_l2_n = nf10_upb_10g_interface_0_xaui_tx_l2_n
+ PORT xaui_tx_l1_p = nf10_upb_10g_interface_0_xaui_tx_l1_p
+ PORT refclk = refclk_A
+ PORT xaui_rx_l1_p = net_nf10_upb_10g_interface_0_xaui_rx_l1_p_pin
+ PORT xaui_rx_l0_n = nf10_upb_10g_interface_0_xaui_rx_l0_n
+ PORT dclk = clk100
+ PORT clk156 = nf10_upb_10g_interface_0_clk156
+ PORT axi_resetn = reset_n
+ PORT pause_req = nf10_upb_10g_input_0_pause_req
+ PORT pause_val = nf10_upb_10g_input_0_pause_val
+END
+
+BEGIN nf10_upb_10g_interface
+ PARAMETER INSTANCE = nf10_upb_10g_interface_1
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_XAUI_REVERSE = 1
+ PARAMETER C_CHIPSCOPE_INSTANCE = 0
+ BUS_INTERFACE S_AXIS = nf10_upb_10g_input_1_M_AXIS_MAC
+ BUS_INTERFACE M_AXIS = nf10_upb_10g_interface_1_M_AXIS
+ PORT xaui_tx_l2_n = nf10_upb_10g_interface_1_xaui_tx_l2_n
+ PORT xaui_tx_l1_p = nf10_upb_10g_interface_1_xaui_tx_l1_p
+ PORT xaui_tx_l0_n = nf10_upb_10g_interface_1_xaui_tx_l0_n
+ PORT xaui_tx_l1_n = nf10_upb_10g_interface_1_xaui_tx_l1_n
+ PORT xaui_tx_l2_p = nf10_upb_10g_interface_1_xaui_tx_l2_p
+ PORT xaui_tx_l3_n = nf10_upb_10g_interface_1_xaui_tx_l3_n
+ PORT xaui_rx_l0_p = nf10_upb_10g_interface_1_xaui_rx_l0_p
+ PORT xaui_rx_l0_n = nf10_upb_10g_interface_1_xaui_rx_l0_n
+ PORT xaui_rx_l1_p = nf10_upb_10g_interface_1_xaui_rx_l1_p
+ PORT xaui_rx_l1_n = nf10_upb_10g_interface_1_xaui_rx_l1_n
+ PORT xaui_rx_l2_p = nf10_upb_10g_interface_1_xaui_rx_l2_p
+ PORT xaui_rx_l2_n = nf10_upb_10g_interface_1_xaui_rx_l2_n
+ PORT xaui_rx_l3_p = nf10_upb_10g_interface_1_xaui_rx_l3_p
+ PORT xaui_rx_l3_n = nf10_upb_10g_interface_1_xaui_rx_l3_n
+ PORT xaui_tx_l3_p = nf10_upb_10g_interface_1_xaui_tx_l3_p
+ PORT xaui_tx_l0_p = nf10_upb_10g_interface_1_xaui_tx_l0_p
+ PORT refclk = refclk_B
+ PORT dclk = clk100
+ PORT clk156 = nf10_upb_10g_interface_1_clk156
+ PORT axi_resetn = reset_n
+ PORT pause_req = nf10_upb_10g_input_1_pause_req
+ PORT pause_val = nf10_upb_10g_input_1_pause_val
+END
+
+BEGIN nf10_upb_10g_input
+ PARAMETER INSTANCE = nf10_upb_10g_input_1
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_PORT_NUMBER = 0x00000001
+ PARAMETER C_AXI_BASE_ADDR = 0xD1000000
+ PARAMETER C_AXI_HIGH_ADDR = 0xD1FFFFFF
+ BUS_INTERFACE M_AXIS_MAC = nf10_upb_10g_input_1_M_AXIS_MAC
+ BUS_INTERFACE S_AXIS_MAC = nf10_upb_10g_interface_1_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_upb_output_queue_0_M_AXIS_1
+ BUS_INTERFACE M_AXIS = nf10_upb_10g_input_1_M_AXIS
+ BUS_INTERFACE S_AXI_STATS = axi_interconnect_0
+ PORT axi_aclk = clk
+ PORT clk156 = nf10_upb_10g_interface_1_clk156
+ PORT axi_resetn = reset_n
+ PORT pause_req = nf10_upb_10g_input_1_pause_req
+ PORT pause_val = nf10_upb_10g_input_1_pause_val
+ PORT s_axi_aclk = clk
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_0
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = net_refclk_A_p
+ PORT DIFF_INPUT_N = net_refclk_A_n
+ PORT SINGLE_ENDED_INPUT = refclk_A
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_1
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = net_refclk_B_p
+ PORT DIFF_INPUT_N = net_refclk_B_n
+ PORT SINGLE_ENDED_INPUT = refclk_B
+END
+
+BEGIN nf10_upb_output_queue
+ PARAMETER INSTANCE = nf10_upb_output_queue_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER output_ports = 6
+ BUS_INTERFACE S_AXIS = nf10_upb_ofswitch_0_M_AXIS
+ BUS_INTERFACE M_AXIS_0 = nf10_upb_output_queue_0_M_AXIS_0
+ BUS_INTERFACE M_AXIS_1 = nf10_upb_output_queue_0_M_AXIS_1
+ BUS_INTERFACE M_AXIS_2 = nf10_upb_output_queue_0_M_AXIS_2
+ BUS_INTERFACE M_AXIS_3 = nf10_upb_output_queue_0_M_AXIS_3
+ BUS_INTERFACE M_AXIS_4 = nf10_upb_output_queue_0_M_AXIS_4
+ BUS_INTERFACE M_AXIS_5 = nf10_upb_output_queue_0_M_AXIS_5
+ PORT clk = clk
+ PORT clk2x = clk2x
+ PORT clk2x90 = clk2x90
+ PORT reset = reset
+ PORT m_axis_0_clk = nf10_upb_10g_interface_0_clk156
+ PORT m_axis_0_reset = reset
+ PORT m_axis_1_clk = nf10_upb_10g_interface_1_clk156
+ PORT m_axis_1_reset = reset
+ PORT m_axis_2_clk = nf10_upb_10g_interface_2_clk156
+ PORT m_axis_2_reset = reset
+ PORT m_axis_3_clk = nf10_upb_10g_interface_3_clk156
+ PORT m_axis_3_reset = reset
+ PORT m_axis_4_clk = nf10_upb_interconnect_0_output_queue_clk
+ PORT m_axis_4_reset = reset
+ PORT m_axis_5_clk = clk
+ PORT m_axis_5_reset = reset
+ PORT qdr_a_c = qdr_a_c
+ PORT qdr_a_bw_n = qdr_a_bw_n
+ PORT qdr_a_k_n = qdr_a_k_n
+ PORT qdr_a_k = qdr_a_k
+ PORT qdr_a_cq = qdr_a_cq
+ PORT qdr_a_cq_n = qdr_a_cq_n
+ PORT qdr_a_sa = qdr_a_sa
+ PORT qdr_a_q = qdr_a_q
+ PORT qdr_b_c = qdr_b_c
+ PORT qdr_a_r_n = qdr_a_r_n
+ PORT qdr_b_k_n = qdr_b_k_n
+ PORT qdr_a_w_n = qdr_a_w_n
+ PORT qdr_b_k = qdr_b_k
+ PORT qdr_a_d = qdr_a_d
+ PORT qdr_a_dll_off_n = qdr_a_dll_off_n
+ PORT qdr_b_c_n = qdr_b_c_n
+ PORT qdr_b_cq = qdr_b_cq
+ PORT qdr_b_cq_n = qdr_b_cq_n
+ PORT qdr_b_sa = qdr_b_sa
+ PORT qdr_b_bw_n = qdr_b_bw_n
+ PORT qdr_b_q = qdr_b_q
+ PORT qdr_b_r_n = qdr_b_r_n
+ PORT qdr_b_w_n = qdr_b_w_n
+ PORT qdr_b_d = qdr_b_d
+ PORT qdr_b_dll_off_n = qdr_b_dll_off_n
+ PORT qdr_a_c_n = qdr_a_c_n
+END
+
+BEGIN nf10_upb_clock_generator
+ PARAMETER INSTANCE = nf10_upb_clock_generator_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER reduce_clk_to_120mhz = 1
+ PORT async_reset_in_n = reset_n_in
+ PORT clk100_in = clk100_in
+ PORT clk_out = clk
+ PORT clk2x_out = clk2x
+ PORT clk2x90_out = clk2x90
+ PORT clk100_out = clk100
+ PORT clk20_out = clk20
+ PORT reset_out = reset
+ PORT reset_n_out = reset_n
+END
+
+BEGIN nf10_upb_input_arbiter
+ PARAMETER INSTANCE = nf10_upb_input_arbiter_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_NUM_INPUTS = 6
+ BUS_INTERFACE M_AXIS = nf10_upb_input_arbiter_0_M_AXIS
+ BUS_INTERFACE S_AXIS_0 = nf10_upb_10g_input_0_M_AXIS
+ BUS_INTERFACE S_AXIS_1 = nf10_upb_10g_input_1_M_AXIS
+ BUS_INTERFACE S_AXIS_2 = nf10_upb_10g_input_2_M_AXIS
+ BUS_INTERFACE S_AXIS_3 = nf10_upb_10g_input_3_M_AXIS
+ BUS_INTERFACE S_AXIS_4 = nf10_upb_interconnect_4_M_AXIS
+ BUS_INTERFACE S_AXIS_5 = nf10_upb_dma_input_0_M_AXIS_ARBITER
+ PORT clk = clk
+ PORT reset = reset
+END
+
+BEGIN nf10_upb_10g_interface
+ PARAMETER INSTANCE = nf10_upb_10g_interface_2
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_XAUI_REVERSE = 1
+ BUS_INTERFACE S_AXIS = nf10_upb_10g_input_2_M_AXIS_MAC
+ BUS_INTERFACE M_AXIS = nf10_upb_10g_interface_2_M_AXIS
+ PORT clk156 = nf10_upb_10g_interface_2_clk156
+ PORT axi_resetn = reset_n
+ PORT dclk = clk100
+ PORT refclk = refclk_C
+ PORT pause_req = nf10_upb_10g_input_2_pause_req
+ PORT pause_val = nf10_upb_10g_input_2_pause_val
+ PORT xaui_tx_l0_p = nf10_upb_10g_interface_2_xaui_tx_l0_p
+ PORT xaui_tx_l0_n = nf10_upb_10g_interface_2_xaui_tx_l0_n
+ PORT xaui_tx_l1_p = nf10_upb_10g_interface_2_xaui_tx_l1_p
+ PORT xaui_tx_l1_n = nf10_upb_10g_interface_2_xaui_tx_l1_n
+ PORT xaui_tx_l2_p = nf10_upb_10g_interface_2_xaui_tx_l2_p
+ PORT xaui_tx_l2_n = nf10_upb_10g_interface_2_xaui_tx_l2_n
+ PORT xaui_tx_l3_p = nf10_upb_10g_interface_2_xaui_tx_l3_p
+ PORT xaui_tx_l3_n = nf10_upb_10g_interface_2_xaui_tx_l3_n
+ PORT xaui_rx_l0_p = net_nf10_upb_10g_interface_2_xaui_rx_l0_p_pin
+ PORT xaui_rx_l0_n = net_nf10_upb_10g_interface_2_xaui_rx_l0_n_pin
+ PORT xaui_rx_l1_p = net_nf10_upb_10g_interface_2_xaui_rx_l1_p_pin
+ PORT xaui_rx_l1_n = net_nf10_upb_10g_interface_2_xaui_rx_l1_n_pin
+ PORT xaui_rx_l2_p = net_nf10_upb_10g_interface_2_xaui_rx_l2_p_pin
+ PORT xaui_rx_l2_n = net_nf10_upb_10g_interface_2_xaui_rx_l2_n_pin
+ PORT xaui_rx_l3_p = net_nf10_upb_10g_interface_2_xaui_rx_l3_p_pin
+ PORT xaui_rx_l3_n = net_nf10_upb_10g_interface_2_xaui_rx_l3_n_pin
+END
+
+BEGIN nf10_upb_10g_interface
+ PARAMETER INSTANCE = nf10_upb_10g_interface_3
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE S_AXIS = nf10_upb_10g_input_3_M_AXIS_MAC
+ BUS_INTERFACE M_AXIS = nf10_upb_10g_interface_3_M_AXIS
+ PORT clk156 = nf10_upb_10g_interface_3_clk156
+ PORT axi_resetn = reset_n
+ PORT dclk = clk100
+ PORT refclk = refclk_D
+ PORT xaui_tx_l0_p = nf10_upb_10g_interface_3_xaui_tx_l0_p
+ PORT xaui_tx_l0_n = nf10_upb_10g_interface_3_xaui_tx_l0_n
+ PORT xaui_tx_l1_p = nf10_upb_10g_interface_3_xaui_tx_l1_p
+ PORT xaui_tx_l1_n = nf10_upb_10g_interface_3_xaui_tx_l1_n
+ PORT xaui_tx_l2_p = nf10_upb_10g_interface_3_xaui_tx_l2_p
+ PORT xaui_tx_l2_n = nf10_upb_10g_interface_3_xaui_tx_l2_n
+ PORT xaui_tx_l3_p = nf10_upb_10g_interface_3_xaui_tx_l3_p
+ PORT xaui_tx_l3_n = nf10_upb_10g_interface_3_xaui_tx_l3_n
+ PORT xaui_rx_l0_p = net_nf10_upb_10g_interface_3_xaui_rx_l0_p_pin
+ PORT xaui_rx_l0_n = net_nf10_upb_10g_interface_3_xaui_rx_l0_n_pin
+ PORT xaui_rx_l1_p = net_nf10_upb_10g_interface_3_xaui_rx_l1_p_pin
+ PORT xaui_rx_l1_n = net_nf10_upb_10g_interface_3_xaui_rx_l1_n_pin
+ PORT xaui_rx_l2_n = net_nf10_upb_10g_interface_3_xaui_rx_l2_n_pin
+ PORT xaui_rx_l2_p = net_nf10_upb_10g_interface_3_xaui_rx_l2_p_pin
+ PORT xaui_rx_l3_p = net_nf10_upb_10g_interface_3_xaui_rx_l3_p_pin
+ PORT xaui_rx_l3_n = net_nf10_upb_10g_interface_3_xaui_rx_l3_n_pin
+ PORT pause_req = nf10_upb_10g_input_3_pause_req
+ PORT pause_val = nf10_upb_10g_input_3_pause_val
+END
+
+BEGIN nf10_upb_10g_input
+ PARAMETER INSTANCE = nf10_upb_10g_input_2
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_PORT_NUMBER = 0x00000002
+ PARAMETER C_AXI_BASE_ADDR = 0xD2000000
+ PARAMETER C_AXI_HIGH_ADDR = 0xD2FFFFFF
+ BUS_INTERFACE M_AXIS_MAC = nf10_upb_10g_input_2_M_AXIS_MAC
+ BUS_INTERFACE S_AXIS_MAC = nf10_upb_10g_interface_2_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_upb_output_queue_0_M_AXIS_2
+ BUS_INTERFACE M_AXIS = nf10_upb_10g_input_2_M_AXIS
+ BUS_INTERFACE S_AXI_STATS = axi_interconnect_0
+ PORT axi_aclk = clk
+ PORT clk156 = nf10_upb_10g_interface_2_clk156
+ PORT pause_req = nf10_upb_10g_input_2_pause_req
+ PORT pause_val = nf10_upb_10g_input_2_pause_val
+ PORT axi_resetn = reset_n
+ PORT s_axi_aclk = clk
+END
+
+BEGIN nf10_upb_10g_input
+ PARAMETER INSTANCE = nf10_upb_10g_input_3
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_PORT_NUMBER = 0x00000003
+ PARAMETER C_AXI_BASE_ADDR = 0xD3000000
+ PARAMETER C_AXI_HIGH_ADDR = 0xD3FFFFFF
+ BUS_INTERFACE M_AXIS_MAC = nf10_upb_10g_input_3_M_AXIS_MAC
+ BUS_INTERFACE S_AXIS_MAC = nf10_upb_10g_interface_3_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_upb_output_queue_0_M_AXIS_3
+ BUS_INTERFACE M_AXIS = nf10_upb_10g_input_3_M_AXIS
+ BUS_INTERFACE S_AXI_STATS = axi_interconnect_0
+ PORT axi_aclk = clk
+ PORT clk156 = nf10_upb_10g_interface_3_clk156
+ PORT pause_req = nf10_upb_10g_input_3_pause_req
+ PORT pause_val = nf10_upb_10g_input_3_pause_val
+ PORT axi_resetn = reset_n
+ PORT s_axi_aclk = clk
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_2
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = net_refclk_C_p
+ PORT DIFF_INPUT_N = net_refclk_C_n
+ PORT SINGLE_ENDED_INPUT = refclk_C
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_3
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = net_refclk_D_p
+ PORT DIFF_INPUT_N = net_refclk_D_n
+ PORT SINGLE_ENDED_INPUT = refclk_D
+END
+
+BEGIN nf10_upb_dma
+ PARAMETER INSTANCE = nf10_upb_dma_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BASEADDR = 0x7a800000
+ PARAMETER C_HIGHADDR = 0x7a80ffff
+ BUS_INTERFACE S_AXIS = nf10_upb_dma_input_0_M_AXIS_DMA
+ BUS_INTERFACE M_AXIS = nf10_upb_dma_0_M_AXIS
+ BUS_INTERFACE M_AXI = axi_interconnect_0
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT pcie_clk_p = pcie_top_0_pcie_clk_p
+ PORT pci_exp_0_txp = pcie_top_0_pci_exp_0_txp
+ PORT pcie_clk_n = pcie_top_0_pcie_clk_n
+ PORT pci_exp_0_rxp = pcie_top_0_pci_exp_0_rxp
+ PORT pci_exp_0_rxn = pcie_top_0_pci_exp_0_rxn
+ PORT pci_exp_1_txp = pcie_top_0_pci_exp_1_txp
+ PORT pci_exp_1_txn = pcie_top_0_pci_exp_1_txn
+ PORT pci_exp_1_rxp = pcie_top_0_pci_exp_1_rxp
+ PORT pci_exp_1_rxn = pcie_top_0_pci_exp_1_rxn
+ PORT pci_exp_4_txp = pcie_top_0_pci_exp_4_txp
+ PORT pci_exp_2_txp = pcie_top_0_pci_exp_2_txp
+ PORT pci_exp_2_txn = pcie_top_0_pci_exp_2_txn
+ PORT pci_exp_2_rxp = pcie_top_0_pci_exp_2_rxp
+ PORT pci_exp_2_rxn = pcie_top_0_pci_exp_2_rxn
+ PORT pci_exp_3_txp = pcie_top_0_pci_exp_3_txp
+ PORT pci_exp_3_txn = pcie_top_0_pci_exp_3_txn
+ PORT pci_exp_3_rxp = pcie_top_0_pci_exp_3_rxp
+ PORT pci_exp_3_rxn = pcie_top_0_pci_exp_3_rxn
+ PORT pci_exp_4_txn = pcie_top_0_pci_exp_4_txn
+ PORT pci_exp_4_rxp = pcie_top_0_pci_exp_4_rxp
+ PORT pci_exp_4_rxn = pcie_top_0_pci_exp_4_rxn
+ PORT pci_exp_5_txp = pcie_top_0_pci_exp_5_txp
+ PORT pci_exp_5_txn = pcie_top_0_pci_exp_5_txn
+ PORT pci_exp_5_rxp = pcie_top_0_pci_exp_5_rxp
+ PORT pci_exp_5_rxn = pcie_top_0_pci_exp_5_rxn
+ PORT pci_exp_6_txp = pcie_top_0_pci_exp_6_txp
+ PORT pci_exp_6_txn = pcie_top_0_pci_exp_6_txn
+ PORT pci_exp_6_rxp = pcie_top_0_pci_exp_6_rxp
+ PORT pci_exp_6_rxn = pcie_top_0_pci_exp_6_rxn
+ PORT pci_exp_7_txn = pcie_top_0_pci_exp_7_txn
+ PORT pci_exp_7_txp = pcie_top_0_pci_exp_7_txp
+ PORT pci_exp_7_rxn = pcie_top_0_pci_exp_7_rxn
+ PORT pci_exp_7_rxp = pcie_top_0_pci_exp_7_rxp
+ PORT pci_exp_0_txn = pcie_top_0_pci_exp_0_txn
+ PORT reset_n = reset_n
+ PORT pcie_clk = pcie_clk
+ PORT M_AXIS_ACLK = clk
+ PORT S_AXIS_ACLK = clk
+ PORT M_AXI_LITE_ACLK = pcie_clk
+ PORT S_AXI_ACLK = pcie_clk
+# PORT chipscope_control_1 = chipscope_control0
+END
+
+BEGIN nf10_upb_dma_input
+ PARAMETER INSTANCE = nf10_upb_dma_input_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_PORT_NUMBER = 5
+ BUS_INTERFACE M_AXIS_DMA = nf10_upb_dma_input_0_M_AXIS_DMA
+ BUS_INTERFACE S_AXIS_DMA = nf10_upb_dma_0_M_AXIS
+ BUS_INTERFACE M_AXIS_ARBITER = nf10_upb_dma_input_0_M_AXIS_ARBITER
+ BUS_INTERFACE S_AXIS_OUTPUT_QUEUE = nf10_upb_output_queue_0_M_AXIS_5
+ PORT axi_resetn = reset_n
+ PORT CLK = clk
+END
+
+BEGIN nf10_mdio
+ PARAMETER INSTANCE = nf10_mdio_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_INCLUDE_PHY_CONSTRAINTS = 0
+ PARAMETER C_BASEADDR = 0x7a000000
+ PARAMETER C_HIGHADDR = 0x7a00ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = clk
+ PORT PHY_MDC = nf10_mdio_0_PHY_MDC
+ PORT PHY_MDIO = nf10_mdio_0_PHY_MDIO
+ PORT PHY_rst_n = nf10_mdio_0_PHY_rst_n
+END
+
+BEGIN axi_gpio
+ PARAMETER INSTANCE = axi_cfg_fpga_0
+ PARAMETER HW_VER = 1.01.b
+ PARAMETER C_GPIO_WIDTH = 2
+ PARAMETER C_DOUT_DEFAULT = 0x9c1eFFFF
+ PARAMETER C_TRI_DEFAULT = 0x00000000
+ PARAMETER C_BASEADDR = 0x40000000
+ PARAMETER C_HIGHADDR = 0x40000FFF
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = clk
+ PORT GPIO_IO = axi_cfg_fpga_0_GPIO_IO
+END
+
+BEGIN nf10_upb_dummy_port
+ PARAMETER INSTANCE = nf10_upb_dummy_port_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER peripheral_port_width = 32
+ PARAMETER external_port_width = 8
+ PORT peripheral_connection = Mem_DQ_dummy_port
+ PORT external_connection = axi_emc_0_Mem_DQ
+END
+
+# axi_emc 1.03b does not work (flash write errors); TODO: check if a too low value in C_WR_REC_TIME_MEM_0 is responsible for that
+BEGIN axi_emc
+ PARAMETER INSTANCE = axi_emc_0
+ PARAMETER HW_VER = 1.01.a
+ PARAMETER C_AXI_CLK_PERIOD_PS = 8333
+ PARAMETER C_NUM_BANKS_MEM = 1
+ PARAMETER C_MEM0_WIDTH = 32
+ PARAMETER C_INCLUDE_DATAWIDTH_MATCHING_0 = 0
+ PARAMETER C_MEM0_TYPE = 2
+# Platform Flash XL data sheet: TCE 85ns
+ PARAMETER C_TCEDV_PS_MEM_0 = 130000
+# Platform Flash XL data sheet: TACC 85ns
+ PARAMETER C_TAVDV_PS_MEM_0 = 130000
+# Platform Flash XL data sheet: THZ 17ns
+ PARAMETER C_THZCE_PS_MEM_0 = 35000
+# new, Platform Flash XL data sheet: TGHQZ 17ns
+ PARAMETER C_THZOE_PS_MEM_0 = 35000
+# new, Platform Flash XL data sheet: TPAGE 30ns
+ PARAMETER C_TPACC_PS_FLASH_0 = 60000
+# changed, Platform Flash XL data sheet: TAVAV 85 ns
+ PARAMETER C_TWC_PS_MEM_0 = 170000
+# changed, Platform Flash XL data sheet: TWLWH 50 ns
+ PARAMETER C_TWP_PS_MEM_0 = 100000
+# Platform Flash XL data sheet: TWHGL 0 ns
+ PARAMETER C_TLZWE_PS_MEM_0 = 35000
+# new, Platform Flash XL data sheet: TWHWL 25ns
+ PARAMETER C_TWPH_PS_MEM_0 = 50000
+# PARAMETER C_WR_REC_TIME_MEM_0 = 50000 # new, Platform Flash XL data sheet: WHEL 25ns
+ PARAMETER C_MAX_MEM_WIDTH = 32
+ PARAMETER C_S_AXI_MEM_PROTOCOL = axi4lite
+ PARAMETER C_S_AXI_MEM_ID_WIDTH = 1
+ PARAMETER C_S_AXI_MEM0_BASEADDR = 0x80000000
+ PARAMETER C_S_AXI_MEM0_HIGHADDR = 0x83FFFFFF
+ BUS_INTERFACE S_AXI_MEM = axi_interconnect_0
+ PORT S_AXI_ACLK = clk
+ PORT RdClk = clk
+ PORT Mem_WEN = axi_emc_0_Mem_WEN
+ PORT Mem_OEN = axi_emc_0_Mem_OEN
+ PORT Mem_CEN = axi_emc_0_Mem_CEN
+# Workaround for XST bug: Using just axi_emc_0_Mem_DQ would connect it to Mem_DQ(31:24) (look at the generated system.vhd)
+ PORT Mem_DQ = Mem_DQ_dummy_port
+ PORT Mem_A = 0b000000 & axi_emc_0_Mem_A & 0b00
+END
+
+BEGIN nf10_upb_ofswitch
+ PARAMETER INSTANCE = nf10_upb_ofswitch_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_AXI_BASE_ADDR_TCAM = 0xA0000000
+ PARAMETER C_AXI_HIGH_ADDR_TCAM = 0xAFFFFFFF
+ PARAMETER C_AXI_BASE_ADDR_STATS = 0xC0000000
+ PARAMETER C_AXI_HIGH_ADDR_STATS = 0xCFFFFFFF
+ PARAMETER C_AXI_BASE_ADDR_CAM = 0xB0000000
+ PARAMETER C_AXI_HIGH_ADDR_CAM = 0xBFFFFFFF
+ PARAMETER C_DMA_FIRST_EXTERNAL_PORT = 0
+ PARAMETER C_DMA_LAST_EXTERNAL_PORT = 4
+ PARAMETER C_DMA_PORT = 5
+ PARAMETER C_BRIDGED_ETH_A_VPORT = 5
+ PARAMETER C_BRIDGED_ETH_B_VPORT = 6
+ PARAMETER TCAM_DEPTH = 64
+ PARAMETER CAM_DEPTH = 2048
+ BUS_INTERFACE S_AXIS = nf10_upb_input_arbiter_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_upb_ofswitch_0_M_AXIS
+ BUS_INTERFACE S_AXI_TCAM = axi_interconnect_0
+ BUS_INTERFACE S_AXI_STATS = axi_interconnect_0
+ BUS_INTERFACE S_AXI_CAM = axi_interconnect_0
+ PORT clk = clk
+ PORT reset = reset
+ PORT s_axi_tcam_aclk = clk
+ PORT s_axi_stats_aclk = clk
+ PORT s_axi_cam_aclk = clk
+END
+
+BEGIN nf10_upb_interconnect
+ PARAMETER INSTANCE = nf10_upb_interconnect_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_PORT_NUMBER = 0x00000004
+ PARAMETER C_AXI_BASE_ADDR = 0xD4000000
+ PARAMETER C_AXI_HIGH_ADDR = 0xD4FFFFFF
+ BUS_INTERFACE S_AXIS = nf10_upb_output_queue_0_M_AXIS_4
+ BUS_INTERFACE M_AXIS = nf10_upb_interconnect_4_M_AXIS
+ BUS_INTERFACE S_AXI_STATS = axi_interconnect_0
+ PORT output_queue_clk = nf10_upb_interconnect_0_output_queue_clk
+ PORT axi_resetn = reset_n
+ PORT RESET = reset
+ PORT GTXD8_P = net_nf10_upb_interconnect_0_GTXD8_P_pin
+ PORT GTXD8_N = net_nf10_upb_interconnect_0_GTXD8_N_pin
+ PORT GT_RESET_IN = reset
+ PORT RXP = net_nf10_upb_interconnect_0_RXP_pin
+ PORT RXN = net_nf10_upb_interconnect_0_RXN_pin
+ PORT TXP = nf10_upb_interconnect_0_TXP
+ PORT TXN = nf10_upb_interconnect_0_TXN
+ PORT axi_aclk = clk
+ PORT INIT_CLK = clk20
+ PORT s_axi_aclk = clk
+END
+
+# ChipScope templates...
+
+#BEGIN nf10_upb_chipscope_icon
+# PARAMETER INSTANCE = nf10_upb_chipscope_icon_0
+# PARAMETER HW_VER = 1.00.a
+# PARAMETER icon_ports = 4
+# PORT control0 = chipscope_control0
+# PORT control1 = chipscope_control1
+# PORT control2 = chipscope_control2
+# PORT control3 = chipscope_control3
+#END
+
+#BEGIN nf10_upb_axi_stream_chipscope
+# PARAMETER INSTANCE = nf10_upb_axi_stream_chipscope_0
+# PARAMETER HW_VER = 1.00.a
+# PORT clk = clk
+# PORT reset = reset
+# BUS_INTERFACE AXIS = nf10_upb_input_arbiter_0_M_AXIS
+# PORT chipscope_control = chipscope_control1
+#END
+
+#BEGIN nf10_upb_axi_stream_chipscope
+# PARAMETER INSTANCE = nf10_upb_axi_stream_chipscope_1
+# PARAMETER HW_VER = 1.00.a
+# PORT clk = clk
+# PORT reset = reset
+# BUS_INTERFACE AXIS = nf10_upb_ofswitch_0_M_AXIS
+# PORT chipscope_control = chipscope_control2
+#END
+
+#BEGIN nf10_upb_axi_stream_chipscope
+# PARAMETER INSTANCE = nf10_upb_axi_stream_chipscope_2
+# PARAMETER HW_VER = 1.00.a
+# PORT clk = clk
+# PORT reset = reset
+# BUS_INTERFACE AXIS = nf10_upb_output_queue_0_M_AXIS_5
+# PORT chipscope_control = chipscope_control3
+#END
+
+# BEGIN nf10_upb_axi_lite_chipscope
+# PARAMETER INSTANCE = nf10_upb_axi_lite_chipscope_1
+# PARAMETER HW_VER = 1.00.a
+# PARAMETER USE_FF_BEFORE_CHIPSCOPE = 1
+# PORT axi_aclk = clk
+# BUS_INTERFACE AXI = nf10_upb_ofswitch_0.S_AXI_TCAM
+# PORT chipscope_control = chipscope_control1
+# END
+
+# BEGIN nf10_upb_axi_lite_chipscope
+# PARAMETER INSTANCE = nf10_upb_axi_lite_chipscope_2
+# PARAMETER HW_VER = 1.00.a
+# PARAMETER USE_FF_BEFORE_CHIPSCOPE = 1
+# PORT axi_aclk = pcie_clk
+# BUS_INTERFACE AXI = nf10_upb_dma_0.M_AXI
+# PORT chipscope_control = chipscope_control2
+# END
